@@ -1,0 +1,16 @@
+{
+  "name": "ai-insights",
+  "version": "0.1.0",
+  "description": "Claude Code 性能监控插件 - 提供操作耗时分析、失败率统计、效率评分和语义化洞察",
+  "author": {
+    "name": "Your Name",
+    "email": "your.email@example.com"
+  },
+  "keywords": [
+    "performance",
+    "monitoring",
+    "analytics",
+    "insights",
+    "profiler"
+  ]
+}

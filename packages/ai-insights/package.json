@@ -1,0 +1,29 @@
+{
+  "name": "ai-insights",
+  "version": "0.1.0",
+  "description": "Claude Code performance monitoring plugin with semantic insights",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "test": "npm run build && node --test",
+    "test:coverage": "npm run build && c8 --reporter=text --reporter=lcov node --test",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "claude-code",
+    "performance",
+    "monitoring",
+    "analytics"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.0.0"
+  }
+}
