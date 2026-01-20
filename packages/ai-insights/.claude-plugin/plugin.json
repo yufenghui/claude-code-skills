@@ -1,42 +1,8 @@
 {
   "name": "ai-insights",
-  "version": "0.1.0",
   "description": "Claude Code 性能监控插件 - 提供操作耗时分析、失败率统计、效率评分和语义化洞察",
   "author": {
     "name": "AI Insights Team",
     "email": "noreply@example.com"
-  },
-  "license": "MIT",
-  "keywords": [
-    "performance",
-    "monitoring",
-    "analytics",
-    "insights",
-    "profiler",
-    "metrics"
-  ],
-  "main": "dist/index.js",
-  "type": "module",
-  "commands": [
-    {
-      "name": "perf-report",
-      "description": "生成 Claude Code 性能分析报告"
-    },
-    {
-      "name": "perf-status",
-      "description": "显示实时性能状态栏"
-    }
-  ],
-  "hooks": {
-    "onSessionStart": "dist/hooks/onSessionStart.js",
-    "onSessionEnd": "dist/hooks/onSessionEnd.js"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "@types/node": "^20.0.0",
-    "typescript": "^5.0.0"
-  },
-  "engines": {
-    "node": ">=18.0.0"
   }
 }

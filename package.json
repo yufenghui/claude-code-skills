@@ -11,8 +11,7 @@
     "dev": "npm run dev --workspaces",
     "test": "npm test --workspaces",
     "lint": "echo 'Linting not configured yet'",
-    "clean": "rm -rf packages/*/dist",
-    "preinstall": "npx only-allow pnpm"
+    "clean": "rm -rf packages/*/dist"
   },
   "keywords": [
     "claude-code",
