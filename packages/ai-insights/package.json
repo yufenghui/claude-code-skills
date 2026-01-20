@@ -4,6 +4,9 @@
   "description": "Claude Code performance monitoring plugin with semantic insights",
   "type": "module",
   "main": "dist/index.js",
+  "bin": {
+    "ai-insights": "dist/cli.js"
+  },
   "scripts": {
     "build": "tsc",
     "dev": "tsc --watch",
