@@ -7,5 +7,6 @@ export { MetricsAnalyzer } from './analyzer/MetricsAnalyzer.js';
 export { JSONStorage } from './storage/JSONStorage.js';
 export { StatusLineRenderer } from './renderer/StatusLineRenderer.js';
 export { ReportRenderer } from './renderer/ReportRenderer.js';
+export { MonitorService } from './monitor/MonitorService.js';
 
 export * from './types.js';
