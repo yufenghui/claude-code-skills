@@ -33,42 +33,63 @@ description: 生成 Claude Code 性能分析报告，包含操作耗时、失败
 - 各模块的耗时统计
 - 操作数量分布
 
+## 实现说明
+
+此命令调用 `ai-insights` 插件的 CLI 报告生成器。
+
+在开发环境中，使用以下命令测试：
+
+```bash
+# 从项目根目录
+npx tsx packages/ai-insights/src/cli.ts --mode report
+
+# 从插件目录
+cd packages/ai-insights
+npm run cli -- --mode report
+```
+
+在生产环境中（安装到 Claude Code 插件目录后）：
+
+```bash
+ai-insights --mode report
+```
+
 ## 示例输出
 
 ```markdown
-## 📊 性能报告 - 实现用户认证功能
+# 📊 性能报告 - 实现用户认证功能
 
-### 会话信息
-- 时间: 2026-01-19
-- 时长: 2h 15m
-- 总操作: 127
+## 会话信息
 
-### 效率指标
-- 成功率: 94.5%
-- 平均耗时: 1.8s
-- 效率评分: 82/100 ⭐⭐⭐⭐
+- **日期：** 2026-01-19
+- **时长：** 45 分钟
+- **总操作数：** 127
 
-### 慢操作 TOP5
+## 效率指标
+
+- **成功率：** 94.5%
+- **平均耗时：** 1.8s
+- **最大耗时：** 45.2s
+- **失败操作：** 3
+
+## 慢操作 TOP5
+
 1. Bash "npm install" - 45.2s 🔥
 2. Read node_modules/... - 12.3s 🐌
 3. Write src/auth/login.ts - 8.7s 🐌
 4. Bash "git clone" - 6.5s 🐌
 5. Edit package.json - 5.2s 🐌
 
-### 失败分析
-- file_not_found × 2: src/config.ts, tests/auth.test.ts
-- timeout × 1: npm install (network issue)
+## 统计数据
 
-### 模块耗时分布
-- src/auth/: 35m (42 operations)
-- frontend/components/: 18m (25 operations)
-- tests/: 12m (15 operations)
+```
+总计：        127
+已完成：      124
+失败：        3
+平均耗时：    1800ms
+最大耗时：    45200ms
 ```
 
-## 实现说明
-
-此命令调用 `ai-insights` 插件的 CLI 报告生成器：
-
-```bash
-node packages/ai-insights/dist/index.js --mode=report
+---
+*由 AI Insights 生成*
 ```

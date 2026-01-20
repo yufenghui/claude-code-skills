@@ -7,70 +7,73 @@
 - ✅ **非侵入式监控**：读取 `~/.claude/history.jsonl`，无需修改 Claude Code
 - ✅ **语义化洞察**：不仅知道"工具调用"，更理解"做了什么"
 - ✅ **实时状态栏**：可配置 1-3 行动态显示关键指标
-- ✅ **详细报告**：`/perf:report` 命令生成深度分析报告
+- ✅ **详细报告**：`/perf-report` 命令生成深度分析报告
 - ✅ **模块化架构**：TypeScript 实现，易扩展
 
 ## 📦 安装
 
-```bash
-# 从 marketplace 安装（未来）
-/plugin install ai-insights@your-marketplace
+### 快速开始（开发模式）
 
-# 本地开发
+```bash
+# 进入项目目录
 cd packages/ai-insights
+
+# 安装依赖
 npm install
-npm run build
+
+# 运行测试
+npx tsx --test test/**/*.test.ts
+
+# 生成报告
+npx tsx src/cli.ts --mode report
 ```
 
-## ⚙️ 配置
+### 作为 Claude Code 插件
 
-编辑 `~/.claude/ai-insights/config.json`：
+**📖 详细安装指南：** [CLAUDE_PLUGIN_GUIDE.md](./CLAUDE_PLUGIN_GUIDE.md)
 
-```json
-{
-  "display": {
-    "lines": 2,
-    "line1": {
-      "components": ["ops_count", "success_rate", "avg_duration"],
-      "separator": " │ "
-    },
-    "line2": {
-      "components": ["slowest_operation", "failures"],
-      "separator": " │ "
-    }
-  },
-  "monitoring": {
-    "mode": "hybrid",
-    "pollingInterval": 5000
-  }
-}
+```bash
+# 方式 1：本地开发模式
+npx tsx packages/ai-insights/src/cli.ts --mode report
+
+# 方式 2：全局安装
+npm link
+ai-insights --mode report
+
+# 方式 3：复制到 Claude 插件目录
+cp -r packages/ai-insights ~/.claude/plugins/
 ```
 
 ## 🚀 使用
 
-### StatusLine 集成
+### Claude Code 命令
 
-在 `~/.claude/settings.json` 中添加：
+在 Claude Code 中输入：
 
-```json
-{
-  "statusLine": {
-    "type": "command",
-    "command": "node /path/to/packages/ai-insights/dist/index.js --mode=statusline",
-    "padding": 0
-  }
-}
+```
+/perf-report    # 生成性能报告
+/perf-status    # 显示实时状态
 ```
 
-### 命令
+或使用自然语言：
+
+```
+"显示性能报告"
+"分析最近操作"
+"查看效率评分"
+```
+
+### 命令行使用
 
 ```bash
 # 生成性能报告
-/perf:report
+npx tsx packages/ai-insights/src/cli.ts --mode report
 
-# 或自然语言触发
-"显示性能报告"
-"分析最近操作"
+# 显示状态栏
+npx tsx packages/ai-insights/src/cli.ts --mode statusline
+
+# 启动监控
+npx tsx packages/ai-insights/src/cli.ts --mode monitor
 ```
 
 ## 📊 监控指标
