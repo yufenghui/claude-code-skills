@@ -8,11 +8,14 @@
     "ai-insights": "dist/cli.js"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "node build.mjs",
     "dev": "tsc --watch",
-    "test": "npm run build && node --test",
+    "test": "node --test",
+    "test:ts": "npx tsx --test",
     "test:coverage": "npm run build && c8 --reporter=text --reporter=lcov node --test",
-    "prepublishOnly": "npm run build"
+    "prepublishOnly": "npm run build",
+    "start": "npx tsx src/cli.ts",
+    "cli": "npx tsx src/cli.ts"
   },
   "keywords": [
     "claude-code",
