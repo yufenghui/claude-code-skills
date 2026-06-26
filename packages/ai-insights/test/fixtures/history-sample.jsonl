@@ -1,5 +1,0 @@
-{"type":"start","timestamp":"2026-01-19T10:00:00.000Z"}
-{"type":"tool_use","timestamp":"2026-01-19T10:00:01.000Z","tool_name":"Read","id":"call-1","input":{"file_path":"src/types.ts"},"status":"completed","output":{"content":"export interface ToolOperation {...}"}}
-{"type":"tool_use","timestamp":"2026-01-19T10:00:02.000Z","tool_name":"Write","id":"call-2","input":{"file_path":"src/index.ts","content":"console.log('hello')"},"status":"completed"}
-{"type":"tool_use","timestamp":"2026-01-19T10:00:03.000Z","tool_name":"Bash","id":"call-3","input":{"command":"npm test"},"status":"error","error":{"message":"测试失败"}}
-{"type":"tool_use","timestamp":"2026-01-19T10:00:04.000Z","tool_name":"Read","id":"call-4","input":{"file_path":"README.md"},"status":"completed"}

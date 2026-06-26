@@ -1,8 +1,0 @@
-{
-  "name": "ai-insights",
-  "description": "Claude Code 性能监控插件 - 提供操作耗时分析、失败率统计、效率评分和语义化洞察",
-  "author": {
-    "name": "AI Insights Team",
-    "email": "noreply@example.com"
-  }
-}
