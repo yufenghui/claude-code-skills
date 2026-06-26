@@ -18,3 +18,7 @@ logs
 *.tmp
 *.temp
 .cache/
+
+# Python
+__pycache__/
+*.pyc
