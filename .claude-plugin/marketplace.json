@@ -1,0 +1,12 @@
+{
+  "name": "claude-code-skills",
+  "owner": {
+    "name": "yufenghui"
+  },
+  "plugins": [
+    {
+      "name": "business-modeling",
+      "source": "./packages/business-modeling"
+    }
+  ]
+}

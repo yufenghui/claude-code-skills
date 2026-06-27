@@ -1,6 +1,5 @@
 {
   "name": "business-modeling",
-  "version": "0.1.0",
   "description": "基于《如何落地业务建模》课程（徐昊，极客时间）的业务建模助手。提供四色建模法、8X Flow 等引导式 skill，附课程原文（source/）与方法论内核（reference/）。",
   "author": "yufenghui"
 }
