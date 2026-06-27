@@ -38,6 +38,14 @@
 - **手写 SVG 图**：节点 = 圆角白卡 + 顶部色帽（原型色）+ 标题 / 关键数据项；连线 = 贝塞尔 + 箭头 marker；实线 / 虚线同终端轨语义。零 JS 依赖、矢量、离线可用。
 - **不用 Mermaid**：报告里的图也用手写 SVG，保证可控、美观、离线。
 
+## 实时预览（live server）
+
+产出过程中，可启动 live server 让 HTML 报告随建模推进**实时刷新**（浏览器边设计边显示），参照 superpowers brainstorming 的增量引导。完整机制（启动 / 增量更新 / 停止 / 异常处理）见 [`./live-session.md`](./live-session.md)。
+
+- just-in-time 启动（需要看图时才提议），不默认开。
+- 每个建模阶段：问关键问题 → 产出该章 section（终端 ASCII + HTML/SVG）→ 追加进 report.html → 浏览器自动刷新 → 用户确认 → 下一阶段。
+- live server 是双轨产出的**运行时升级**：产出物仍是终端 `.md` + 报告 `.html` 两份，只是过程中 HTML 在浏览器实时可见。
+
 ## 样例
 
 - **双轨格式样例（推荐参考）**：`../examples/B2C商城-建模方案/`（`方案.md` 终端 ASCII + `报告.html` 手写 SVG）
