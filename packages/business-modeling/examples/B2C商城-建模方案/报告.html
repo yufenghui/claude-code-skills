@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>B2C 商城购物流程 · 四色建模方案（报告轨样例）</title>
+<style>
+  :root{
+    --moment:#ec4899; --moment-bg:#fde7f3; --moment-ink:#be185d; --moment-line:#fbcfe8;
+    --desc:#3b82f6;   --desc-bg:#e3f0ff;   --desc-ink:#1d4ed8;   --desc-line:#dbeafe;
+    --role:#f9a825;   --role-bg:#fef3cf;   --role-ink:#b45309;   --role-line:#fde68a;
+    --ppt:#2e7d32;    --ppt-bg:#e6f4ea;    --ppt-ink:#1b5e20;    --ppt-line:#bbf7d0;
+    --ink:#1d2230; --muted:#64748b; --faint:#94a3b8; --line:#e6e9f0;
+    --bg:#f5f6fa; --card:#fff; --accent:#4f46e5;
+    --shadow:0 1px 3px rgba(20,30,60,.06), 0 8px 28px rgba(20,30,60,.06);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+  code{font-family:"JetBrains Mono","SFMono-Regular",Consolas,Menlo,monospace;}
+  .hero{color:#fff;padding:60px 24px 52px;text-align:center;background:linear-gradient(135deg,#312e81,#4f46e5 50%,#7c3aed);position:relative;overflow:hidden;}
+  .hero .eyebrow{display:inline-block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.16);padding:6px 14px;border-radius:999px;margin-bottom:16px;}
+  .hero h1{margin:0 0 10px;font-size:32px;font-weight:800;}
+  .hero .sub{margin:0 auto;max-width:720px;color:#e7e9ff;}
+  .meta{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+  .chip{font-size:13px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:8px;color:#f3f4ff;}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:24px;}
+  .legend .lg{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:7px 12px;border-radius:10px;font-size:13px;}
+  .dot{width:12px;height:12px;border-radius:50%;display:inline-block;}
+  .dot.m{background:var(--moment);}.dot.d{background:var(--desc);}.dot.r{background:var(--role);}.dot.p{background:var(--ppt);}
+  .layout{display:flex;gap:36px;max-width:1220px;margin:0 auto;padding:32px 20px 80px;}
+  .toc{position:sticky;top:20px;align-self:flex-start;width:222px;flex:0 0 222px;font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 16px;box-shadow:var(--shadow);}
+  .toc h4{margin:0 0 10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .toc ol{margin:0;padding:0;list-style:none;counter-reset:toc;}
+  .toc li{counter-increment:toc;margin:2px 0;}
+  .toc a{display:block;padding:6px 10px;border-radius:8px;color:#444a5e;text-decoration:none;transition:.15s;}
+  .toc a::before{content:counter(toc) ". ";color:var(--accent);font-weight:700;margin-right:4px;}
+  .toc a:hover{background:#eef0fb;color:var(--accent);}
+  .content{flex:1;min-width:0;}
+  section.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 30px;margin-bottom:22px;box-shadow:var(--shadow);}
+  section.card>h2{margin:0 0 6px;font-size:21px;display:flex;align-items:center;gap:12px;}
+  .num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 8px;border-radius:9px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;font-size:15px;font-weight:800;}
+  .lead{color:var(--muted);margin:2px 0 18px;}
+  h3{margin:24px 0 10px;font-size:16.5px;color:#2a3050;}
+  .table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--line);}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px;}
+  thead th{background:#f1f3fb;text-align:left;padding:11px 13px;font-weight:700;color:#2a3050;border-bottom:2px solid var(--line);white-space:nowrap;}
+  tbody td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top;}
+  tbody tr:nth-child(even){background:#fafbfd;}
+  tbody tr:hover{background:#f1f5ff;}
+  td code{font-size:12.8px;background:#f3f4f8;padding:1px 6px;border-radius:5px;color:#334;}
+  .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700;line-height:1.6;white-space:nowrap;}
+  .b-moment{background:var(--moment-bg);color:var(--moment-ink);}
+  .b-desc{background:var(--desc-bg);color:var(--desc-ink);}
+  .b-role{background:var(--role-bg);color:var(--role-ink);}
+  .b-ppt{background:var(--ppt-bg);color:var(--ppt-ink);}
+  .figure{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;overflow-x:auto;box-shadow:var(--shadow);}
+  .figure svg{display:block;width:100%;height:auto;min-width:720px;}
+  ol.guide{padding-left:20px;} ol.guide li{margin:7px 0;}
+  .numlist{counter-reset:nl;list-style:none;padding:0;}
+  .numlist li{counter-increment:nl;position:relative;padding:8px 10px 8px 42px;margin:8px 0;background:#fafbff;border:1px solid var(--line);border-radius:10px;}
+  .numlist li::before{content:counter(nl);position:absolute;left:8px;top:9px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;}
+  .callout{border-radius:12px;padding:16px 18px;margin:16px 0;border:1px solid;}
+  .callout .t{font-weight:700;margin-bottom:6px;}
+  .ok{background:#f0fbf3;border-color:#bfe9cb;color:#1e6b34;}
+  .warn{background:#fff8ec;border-color:#fbe3b3;color:#9a6500;}
+  .walk{border-left:4px solid var(--accent);padding:6px 0 6px 16px;margin:14px 0;}
+  .walk.bad{border-left-color:var(--moment);}
+  .walk h4{margin:0 0 4px;font-size:15px;}
+  footer{padding:24px 20px 50px;text-align:center;color:var(--muted);font-size:13px;}
+  #topbtn{position:fixed;right:22px;bottom:22px;width:44px;height:44px;border-radius:50%;border:none;background:var(--accent);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 6px 18px rgba(79,70,229,.4);opacity:0;pointer-events:none;transition:.25s;}
+  #topbtn.show{opacity:1;pointer-events:auto;}
+  @media(max-width:1000px){.toc{display:none;}.hero h1{font-size:26px;}section.card{padding:22px 18px;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="eyebrow">四色建模法 · 4 Color Modeling</span>
+  <h1>B2C 商城购物流程业务建模方案</h1>
+  <p class="sub">报告轨样例：所有图用手写 SVG（PPT 级、离线矢量），不用 Mermaid。终端轨见同目录 <code>方案.md</code>。</p>
+  <div class="meta">
+    <span class="chip">📅 2026-06</span>
+    <span class="chip">🧩 方法：四色建模（强分析法）</span>
+    <span class="chip">🏬 场景：平台型 B2C（自营 + 入驻）</span>
+  </div>
+  <div class="legend">
+    <span class="lg"><span class="dot m"></span>时标型 凭证</span>
+    <span class="lg"><span class="dot d"></span>描述型 规则/目录</span>
+    <span class="lg"><span class="dot r"></span>角色型</span>
+    <span class="lg"><span class="dot p"></span>参与者型 PPT</span>
+  </div>
+</header>
+
+<div class="layout">
+  <nav class="toc">
+    <h4>目录 · Contents</h4>
+    <ol>
+      <li><a href="#s0">场景假设</a></li>
+      <li><a href="#s1">端到端时序</a></li>
+      <li><a href="#s2">入口识别</a></li>
+      <li><a href="#s3">业务脊梁</a></li>
+      <li><a href="#s4">异常/逆向</a></li>
+      <li><a href="#s5">KPI 凭证链</a></li>
+      <li><a href="#s6">四原型分布</a></li>
+      <li><a href="#s7">关键判别</a></li>
+      <li><a href="#s8">端到端走查</a></li>
+      <li><a href="#s9">自洽性结论</a></li>
+    </ol>
+  </nav>
+
+  <main class="content">
+
+    <section class="card" id="s0">
+      <h2><span class="num">0</span>场景假设</h2>
+      <p class="lead">四色建模高度依赖业务模式假设。本方案采用 B2C 商城的主流形态。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>维度</th><th>假设</th><th>对模型的影响</th></tr></thead>
+          <tbody>
+            <tr><td>经营形态</td><td><b>平台型</b>（自营 + 第三方商家入驻），如天猫 / 京东 POP</td><td>平台是枢纽方，存在抽佣结算</td></tr>
+            <tr><td>支付方式</td><td>用户<b>在线支付</b>给平台（平台代收）</td><td>引入担保交易、货款释放环节</td></tr>
+            <tr><td>物流配送</td><td>商家发货，<b>外包承运商</b>配送（三通一达 / 顺丰）</td><td>物流是独立合同段</td></tr>
+            <tr><td>逆向流程</td><td>支持<b>七天无理由退货</b></td><td>电商特有逆向履约凭证</td></tr>
+            <tr><td>结算机制</td><td><b>担保交易</b>：确认收货后平台才放款给商家（扣佣）</td><td>收货确认 = 货款释放触发点</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 1. 端到端时序（手写 SVG 时序图） -->
+    <section class="card" id="s1">
+      <h2><span class="num">1</span>端到端业务时序</h2>
+      <p class="lead">凭证随业务推进依次产生；粗线 = 平台直接收付的结算。</p>
+      <div class="figure">
+        <svg viewBox="0 0 740 460" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+          <defs>
+            <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#94a3b8"/></marker>
+            <marker id="arrW" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#fff"/></marker>
+          </defs>
+          <!-- 参与方表头 -->
+          <g font-size="13" font-weight="700" fill="#334">
+            <rect x="50" y="14" width="80" height="26" rx="6" fill="#eef2ff"/><text x="90" y="31" text-anchor="middle">用户</text>
+            <rect x="230" y="14" width="80" height="26" rx="6" fill="#eef2ff"/><text x="270" y="31" text-anchor="middle">平台</text>
+            <rect x="410" y="14" width="80" height="26" rx="6" fill="#eef2ff"/><text x="450" y="31" text-anchor="middle">商家</text>
+            <rect x="590" y="14" width="80" height="26" rx="6" fill="#eef2ff"/><text x="630" y="31" text-anchor="middle">承运商</text>
+          </g>
+          <!-- 生命线 -->
+          <g stroke="#cbd5e1" stroke-width="1.4" stroke-dasharray="4 4">
+            <line x1="90" y1="48" x2="90" y2="410"/>
+            <line x1="270" y1="48" x2="270" y2="410"/>
+            <line x1="450" y1="48" x2="450" y2="410"/>
+            <line x1="630" y1="48" x2="630" y2="410"/>
+          </g>
+          <!-- 消息 -->
+          <g font-size="11.5" fill="#475569">
+            <line x1="92" y1="80" x2="266" y2="80" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/><text x="179" y="74" text-anchor="middle">下单 · placed_at</text>
+            <line x1="92" y1="110" x2="266" y2="110" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/><text x="179" y="104" text-anchor="middle">发起支付</text>
+            <!-- 平台自环 -->
+            <path d="M270,140 C320,140 320,170 270,170" fill="none" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/><text x="345" y="159" text-anchor="start">支付确认 · paid_at</text>
+            <line x1="272" y1="200" x2="446" y2="200" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/><text x="359" y="194" text-anchor="middle">派单 / 接单备货</text>
+            <line x1="452" y1="230" x2="626" y2="230" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/><text x="539" y="224" text-anchor="middle">发货 · shipped_at</text>
+            <line x1="628" y1="270" x2="92" y2="270" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arr)"/><text x="360" y="264" text-anchor="middle">送达 / 收货 · received_at</text>
+            <!-- 结算粗线 -->
+            <line x1="272" y1="320" x2="446" y2="320" stroke="#be185d" stroke-width="3" marker-end="url(#arr)"/><text x="359" y="314" text-anchor="middle" fill="#be185d" font-weight="700">货款结算（扣佣）</text>
+            <line x1="272" y1="352" x2="626" y2="352" stroke="#be185d" stroke-width="3" marker-end="url(#arr)"/><text x="449" y="346" text-anchor="middle" fill="#be185d" font-weight="700">物流费结算</text>
+          </g>
+          <!-- Note -->
+          <rect x="120" y="384" width="500" height="28" rx="6" fill="#eef4ff" stroke="#cdd9fb"/>
+          <text x="370" y="402" text-anchor="middle" font-size="11.5" fill="#27408b">时标：paid_at &gt; placed_at；settled_at &gt; received_at（担保放款）</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="card" id="s2">
+      <h2><span class="num">2</span>入口识别</h2>
+      <p class="lead">现金往来 → 收入流；无现金环节 → 成本结构（KPI）。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>入口</th><th>类型</th><th>性质</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>用户支付订单货款（平台代收）</td><td>现金</td><td>收入流</td></tr>
+            <tr><td>2</td><td>平台向商家结算货款（扣佣金 / 技术服务费）</td><td>现金支出</td><td>收入流</td></tr>
+            <tr><td>3</td><td>平台 / 商家向承运商支付物流费</td><td>现金支出</td><td>收入流</td></tr>
+            <tr><td>4</td><td>发货时效（商家承诺 N 小时内发货）</td><td>无直接现金</td><td>KPI（成本结构）</td></tr>
+            <tr><td>5</td><td>配送时效（承诺 N 天送达）</td><td>无直接现金</td><td>KPI（成本结构）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3. 业务脊梁（手写 SVG 凭证链） -->
+    <section class="card" id="s3">
+      <h2><span class="num">3</span>业务脊梁：凭证链</h2>
+      <p class="lead">实线 = 数值 / 时标来源；虚线 = 规则来源。</p>
+      <div class="figure">
+        <svg viewBox="0 0 1040 540" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+          <defs>
+            <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1e293b" flood-opacity="0.10"/></filter>
+            <marker id="arrC" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#94a3b8"/></marker>
+            <marker id="arrB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#7aa3d6"/></marker>
+          </defs>
+          <text x="520" y="24" text-anchor="middle" font-size="15" font-weight="700" fill="#1d2230">业务脊梁 · 凭证链（B2C 购物流程）</text>
+
+          <!-- 规则行：描述型（蓝） -->
+          <g>
+            <rect x="20" y="66" width="140" height="54" rx="10" fill="#fff" stroke="#dbeafe" filter="url(#sh)"/>
+            <path d="M20,73 L160,73 L160,76 Q160,66 150,66 L30,66 Q20,66 20,76 Z" fill="#3b82f6"/>
+            <text x="90" y="92" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">商品目录</text>
+            <text x="90" y="109" text-anchor="middle" font-size="10" fill="#64748b">SKU · price · spec</text>
+          </g>
+          <g>
+            <rect x="170" y="66" width="140" height="54" rx="10" fill="#fff" stroke="#dbeafe" filter="url(#sh)"/>
+            <path d="M170,73 L310,73 L310,76 Q310,66 300,66 L180,66 Q170,66 170,76 Z" fill="#3b82f6"/>
+            <text x="240" y="92" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">优惠券 / 促销</text>
+            <text x="240" y="109" text-anchor="middle" font-size="10" fill="#64748b">Coupon · Promotion</text>
+          </g>
+          <path d="M90,120 C90,180 114,200 114,238" fill="none" stroke="#7aa3d6" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrB)"/>
+          <path d="M240,120 C240,180 150,180 150,238" fill="none" stroke="#7aa3d6" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrB)"/>
+
+          <!-- 主链：时标型（粉） -->
+          <g>
+            <rect x="30" y="240" width="168" height="70" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh)"/>
+            <path d="M30,248 L198,248 L198,252 Q198,240 186,240 L42,240 Q30,240 30,252 Z" fill="#ec4899"/>
+            <text x="114" y="270" text-anchor="middle" font-size="13.5" font-weight="700" fill="#be185d">订单</text>
+            <text x="114" y="287" text-anchor="middle" font-size="10" fill="#64748b">Order · placed_at</text>
+            <text x="114" y="300" text-anchor="middle" font-size="9.5" fill="#94a3b8">total_amount</text>
+          </g>
+          <g>
+            <rect x="230" y="240" width="168" height="70" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh)"/>
+            <path d="M230,248 L398,248 L398,252 Q398,240 386,240 L242,240 Q230,240 230,252 Z" fill="#ec4899"/>
+            <text x="314" y="270" text-anchor="middle" font-size="13.5" font-weight="700" fill="#be185d">支付</text>
+            <text x="314" y="287" text-anchor="middle" font-size="10" fill="#64748b">Payment · paid_at</text>
+            <text x="314" y="300" text-anchor="middle" font-size="9.5" fill="#94a3b8">amount</text>
+          </g>
+          <g>
+            <rect x="430" y="240" width="168" height="70" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh)"/>
+            <path d="M430,248 L598,248 L598,252 Q598,240 586,240 L442,240 Q430,240 430,252 Z" fill="#ec4899"/>
+            <text x="514" y="270" text-anchor="middle" font-size="13.5" font-weight="700" fill="#be185d">发货</text>
+            <text x="514" y="287" text-anchor="middle" font-size="10" fill="#64748b">ShipmentConfirm</text>
+            <text x="514" y="300" text-anchor="middle" font-size="9.5" fill="#94a3b8">shipped_at</text>
+          </g>
+          <g>
+            <rect x="630" y="240" width="168" height="70" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh)"/>
+            <path d="M630,248 L798,248 L798,252 Q798,240 786,240 L642,240 Q630,240 630,252 Z" fill="#ec4899"/>
+            <text x="714" y="270" text-anchor="middle" font-size="13.5" font-weight="700" fill="#be185d">收货</text>
+            <text x="714" y="287" text-anchor="middle" font-size="10" fill="#64748b">DeliveryConfirm</text>
+            <text x="714" y="300" text-anchor="middle" font-size="9.5" fill="#94a3b8">received_at</text>
+          </g>
+          <g>
+            <rect x="830" y="240" width="168" height="70" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh)"/>
+            <path d="M830,248 L998,248 L998,252 Q998,240 986,240 L842,240 Q830,240 830,252 Z" fill="#ec4899"/>
+            <text x="914" y="270" text-anchor="middle" font-size="13.5" font-weight="700" fill="#be185d">商家结算</text>
+            <text x="914" y="287" text-anchor="middle" font-size="10" fill="#64748b">MerchantSettlement</text>
+            <text x="914" y="300" text-anchor="middle" font-size="9.5" fill="#94a3b8">扣佣 · 担保放款</text>
+          </g>
+          <!-- 主链实线 -->
+          <path d="M200,275 L228,275" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrC)"/>
+          <path d="M398,275 L428,275" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrC)"/>
+          <path d="M600,275 L628,275" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrC)"/>
+          <path d="M798,275 L828,275" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrC)"/>
+
+          <!-- 旁支：LogisticsFee -->
+          <path d="M314,310 L314,396" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrC)"/>
+          <g>
+            <rect x="230" y="400" width="168" height="70" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh)"/>
+            <path d="M230,408 L398,408 L398,412 Q398,400 386,400 L242,400 Q230,400 230,412 Z" fill="#ec4899"/>
+            <text x="314" y="430" text-anchor="middle" font-size="13.5" font-weight="700" fill="#be185d">物流费</text>
+            <text x="314" y="447" text-anchor="middle" font-size="10" fill="#64748b">LogisticsFee</text>
+            <text x="314" y="460" text-anchor="middle" font-size="9.5" fill="#94a3b8">fee = f(…)</text>
+          </g>
+          <!-- 规则行：旁支描述型 -->
+          <g>
+            <rect x="430" y="410" width="140" height="54" rx="10" fill="#fff" stroke="#dbeafe" filter="url(#sh)"/>
+            <path d="M430,417 L570,417 L570,420 Q570,410 560,410 L440,410 Q430,410 430,420 Z" fill="#3b82f6"/>
+            <text x="500" y="436" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">运费规则</text>
+            <text x="500" y="453" text-anchor="middle" font-size="10" fill="#64748b">f(重量, 地区)</text>
+          </g>
+          <path d="M430,437 L402,437" fill="none" stroke="#7aa3d6" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrB)"/>
+          <g>
+            <rect x="630" y="410" width="140" height="54" rx="10" fill="#fff" stroke="#dbeafe" filter="url(#sh)"/>
+            <path d="M630,417 L770,417 L770,420 Q770,410 760,410 L640,410 Q630,410 630,420 Z" fill="#3b82f6"/>
+            <text x="700" y="436" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">退换货政策</text>
+            <text x="700" y="453" text-anchor="middle" font-size="10" fill="#64748b">七天无理由</text>
+          </g>
+          <path d="M700,410 C700,360 714,360 714,312" fill="none" stroke="#7aa3d6" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrB)"/>
+          <g>
+            <rect x="830" y="410" width="140" height="54" rx="10" fill="#fff" stroke="#dbeafe" filter="url(#sh)"/>
+            <path d="M830,417 L970,417 L970,420 Q970,410 960,410 L840,410 Q830,410 830,420 Z" fill="#3b82f6"/>
+            <text x="900" y="436" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">抽佣规则</text>
+            <text x="900" y="453" text-anchor="middle" font-size="10" fill="#64748b">commission_rate</text>
+          </g>
+          <path d="M900,410 C900,360 914,360 914,312" fill="none" stroke="#7aa3d6" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrB)"/>
+
+          <!-- 图例 -->
+          <g transform="translate(30,500)">
+            <rect x="0" y="0" width="14" height="14" rx="3" fill="#ec4899"/><text x="20" y="11" font-size="11.5" fill="#475569">时标型（凭证）</text>
+            <rect x="150" y="0" width="14" height="14" rx="3" fill="#3b82f6"/><text x="170" y="11" font-size="11.5" fill="#475569">描述型（规则/目录）</text>
+            <line x1="320" y1="7" x2="356" y2="7" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrC)"/><text x="362" y="11" font-size="11.5" fill="#475569">数值/时标来源</text>
+            <line x1="500" y1="7" x2="536" y2="7" stroke="#7aa3d6" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrB)"/><text x="542" y="11" font-size="11.5" fill="#475569">规则来源</text>
+          </g>
+        </svg>
+      </div>
+
+      <h3>凭证表</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>凭证</th><th>原型</th><th>关键数据项</th><th>来源 / 计算逻辑</th><th>时标顺序逻辑</th></tr></thead>
+          <tbody>
+            <tr><td><b>Order 订单</b></td><td><span class="badge b-moment">时标型</span></td><td><code>placed_at</code>, <code>total_amount</code></td><td><code>total_amount = Σ(SKU快照价 × qty) − Coupon − Promotion</code></td><td>锁定价格快照，变价不溯及既有订单</td></tr>
+            <tr><td><b>Payment 支付</b></td><td><span class="badge b-moment">时标型</span></td><td><code>paid_at</code>, <code>amount</code></td><td><code>amount = Order.total_amount</code></td><td><code>paid_at &gt; placed_at</code></td></tr>
+            <tr><td><b>ShipmentConfirm 发货</b></td><td><span class="badge b-moment">时标型</span></td><td><code>shipped_at</code></td><td>KPI"实际发货"凭证</td><td><code>shipped_at &gt; paid_at</code>（COD 是变化点）</td></tr>
+            <tr><td><b>DeliveryConfirm 收货</b></td><td><span class="badge b-moment">时标型</span></td><td><code>received_at</code></td><td>用户确认 / 超时自动确认</td><td><code>received_at &gt; shipped_at</code></td></tr>
+            <tr><td><b>MerchantSettlement 商家结算</b></td><td><span class="badge b-moment">时标型</span></td><td><code>settled_at</code>, <code>amount</code></td><td><code>amount = Σ(Order.total_amount) × (1 − rate) − Σ(Refund)</code></td><td><b><code>settled_at &gt; received_at</code></b>（担保放款）</td></tr>
+            <tr><td><b>LogisticsFee 物流费</b></td><td><span class="badge b-moment">时标型</span></td><td><code>paid_at</code>, <code>fee</code></td><td><code>fee = f(重量, 地区, 满减)</code>（算法，追溯 FreightRule）</td><td>账期内</td></tr>
+            <tr><td><b>Refund 退款</b>（逆向）</td><td><span class="badge b-moment">时标型</span></td><td><code>refund_at</code>, <code>amount</code></td><td><code>amount = Payment.amount</code></td><td><code>refund_at &gt; received_at</code>；引用 Payment</td></tr>
+            <tr><td><b>Return 退货</b>（逆向）</td><td><span class="badge b-moment">时标型</span></td><td><code>returned_at</code></td><td>退货物流确认</td><td><code>returned_at ≤ received_at + return_window</code></td></tr>
+            <tr><td>SKU 商品目录</td><td><span class="badge b-desc">描述型</span></td><td><code>price</code>, <code>spec</code></td><td>规则 / 目录模板，被订单引用快照</td><td>—</td></tr>
+            <tr><td>Promotion / Coupon / Freight / Commission / ReturnPolicy</td><td><span class="badge b-desc">描述型</span></td><td>算法 / <code>face_value</code> / <code>rate</code> / <code>window</code></td><td>规则模板，被凭证引用</td><td>—</td></tr>
+            <tr><td><b>商品 (SKU)</b> / 用户 / 商家 / 平台 / 承运商</td><td><span class="badge b-ppt">参与者型</span></td><td>—</td><td><b>标的物 = 商品 (SKU)</b>，业务上下文不拥有其生命周期</td><td>—</td></tr>
+            <tr><td>买方 / 卖方 / 付款方 / 收款方 / 发货方 / 承运方</td><td><span class="badge b-role">角色型</span></td><td>—</td><td>参与方在凭证中的角色</td><td>—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. 异常 / 逆向（手写 SVG 违约流转） -->
+    <section class="card" id="s4">
+      <h2><span class="num">4</span>异常 / 逆向凭证</h2>
+      <p class="lead">逆向流程也是凭证，是权责追溯的关键考验。</p>
+      <div class="figure">
+        <svg viewBox="0 0 980 380" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+          <defs>
+            <filter id="sh2" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1e293b" flood-opacity="0.10"/></filter>
+            <marker id="arrD" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#94a3b8"/></marker>
+          </defs>
+          <!-- 根 -->
+          <g>
+            <rect x="380" y="24" width="220" height="60" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh2)"/>
+            <path d="M380,32 L600,32 L600,36 Q600,24 588,24 L392,24 Q380,24 380,36 Z" fill="#ec4899"/>
+            <text x="490" y="52" text-anchor="middle" font-size="13.5" font-weight="700" fill="#be185d">Order 已下单</text>
+            <text x="490" y="70" text-anchor="middle" font-size="10" fill="#64748b">主要履约项：支付 / 备货交付</text>
+          </g>
+          <!-- 分叉线 -->
+          <g fill="none" stroke="#94a3b8" stroke-width="1.8">
+            <path d="M490,84 C490,140 116,150 116,196" marker-end="url(#arrD)"/>
+            <path d="M490,84 C490,140 324,150 324,196" marker-end="url(#arrD)"/>
+            <path d="M490,84 C490,140 532,150 532,196" marker-end="url(#arrD)"/>
+            <path d="M490,84 C490,140 740,150 740,196" marker-end="url(#arrD)"/>
+          </g>
+          <g font-size="10.5" fill="#64748b" text-anchor="middle">
+            <text x="116" y="150">超时未支付</text>
+            <text x="324" y="150">已付未发·取消</text>
+            <text x="532" y="150">七天无理由</text>
+            <text x="740" y="150">发货超时(KPI)</text>
+          </g>
+          <!-- 4 子节点 -->
+          <g>
+            <rect x="24" y="200" width="184" height="60" rx="10" fill="#fff" stroke="#e2e8f0" filter="url(#sh2)"/>
+            <path d="M24,207 L208,207 L208,210 Q208,200 198,200 L34,200 Q24,200 24,210 Z" fill="#94a3b8"/>
+            <text x="116" y="228" text-anchor="middle" font-size="12.5" font-weight="700" fill="#475569">自动作废</text>
+            <text x="116" y="246" text-anchor="middle" font-size="10" fill="#94a3b8">订单关闭 → 终止</text>
+          </g>
+          <g>
+            <rect x="232" y="200" width="184" height="60" rx="10" fill="#fff" stroke="#fbcfe8" filter="url(#sh2)"/>
+            <path d="M232,207 L416,207 L416,210 Q416,200 406,200 L242,200 Q232,200 232,210 Z" fill="#ec4899"/>
+            <text x="324" y="228" text-anchor="middle" font-size="12.5" font-weight="700" fill="#be185d">Refund 仅退款</text>
+            <text x="324" y="246" text-anchor="middle" font-size="10" fill="#64748b">独立履约项</text>
+          </g>
+          <g>
+            <rect x="440" y="200" width="184" height="60" rx="10" fill="#fff" stroke="#fbcfe8" filter="url(#sh2)"/>
+            <path d="M440,207 L624,207 L624,210 Q624,200 614,200 L450,200 Q440,200 440,210 Z" fill="#ec4899"/>
+            <text x="532" y="228" text-anchor="middle" font-size="12.5" font-weight="700" fill="#be185d">Return + Refund</text>
+            <text x="532" y="246" text-anchor="middle" font-size="10" fill="#64748b">受 return_window 约束</text>
+          </g>
+          <g>
+            <rect x="648" y="200" width="184" height="60" rx="10" fill="#fff" stroke="#fbcfe8" filter="url(#sh2)"/>
+            <path d="M648,207 L832,207 L832,210 Q832,200 822,200 L658,200 Q648,200 648,210 Z" fill="#ec4899"/>
+            <text x="740" y="228" text-anchor="middle" font-size="12.5" font-weight="700" fill="#be185d">TimeoutPenalty</text>
+            <text x="740" y="246" text-anchor="middle" font-size="10" fill="#64748b">扣保证金 / 降权</text>
+          </g>
+          <!-- 打官司 -->
+          <path d="M740,260 L740,300" fill="none" stroke="#94a3b8" stroke-width="1.8" marker-end="url(#arrD)"/>
+          <text x="800" y="284" font-size="10.5" fill="#64748b">拒不赔付</text>
+          <g>
+            <rect x="648" y="306" width="184" height="54" rx="10" fill="#fff" stroke="#e2e8f0" filter="url(#sh2)"/>
+            <path d="M648,313 L832,313 L832,316 Q832,306 822,306 L658,306 Q648,306 648,316 Z" fill="#94a3b8"/>
+            <text x="740" y="332" text-anchor="middle" font-size="12.5" font-weight="700" fill="#475569">打官司 → 终止</text>
+            <text x="740" y="350" text-anchor="middle" font-size="10" fill="#94a3b8">终极履约</text>
+          </g>
+        </svg>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>逆向场景</th><th>凭证</th><th>判定</th></tr></thead>
+          <tbody>
+            <tr><td>超时未支付</td><td>订单关闭</td><td><b>自动作废</b>（状态翻转，无需对方确认）→ 终止</td></tr>
+            <tr><td>已付款未发货，用户取消</td><td><code>Refund</code></td><td>独立履约项（退钱），<code>refund_at &gt; paid_at</code></td></tr>
+            <tr><td>已收货，七天无理由</td><td><code>Return</code> + <code>Refund</code></td><td>受 <code>ReturnPolicy.return_window</code> 时标约束</td></tr>
+            <tr><td>商家发货超时</td><td><code>TimeoutPenalty</code></td><td>KPI 偏差触发（扣保证金 / 降权 / 赔付）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5. KPI 凭证链（手写 SVG） -->
+    <section class="card" id="s5">
+      <h2><span class="num">5</span>KPI 凭证链</h2>
+      <p class="lead">电商有<b>双段物流时效</b>（外卖只有一段）：发货时效约束商家，配送时效约束承运商。</p>
+      <div class="figure">
+        <svg viewBox="0 0 1040 320" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+          <defs>
+            <filter id="sh3" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1e293b" flood-opacity="0.10"/></filter>
+            <marker id="arrE" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#94a3b8"/></marker>
+            <marker id="arrS" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,1 L9,5 L0,9 Z" fill="#7aa3d6"/></marker>
+          </defs>
+
+          <!-- 段1 发货 -->
+          <text x="20" y="28" font-size="13" font-weight="700" fill="#be185d">① 发货时效</text>
+          <g>
+            <rect x="30" y="40" width="200" height="64" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh3)"/>
+            <path d="M30,48 L230,48 L230,52 Q230,40 218,40 L42,40 Q30,40 30,52 Z" fill="#ec4899"/>
+            <text x="130" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#be185d">发货时效目标</text>
+            <text x="130" y="88" text-anchor="middle" font-size="10" fill="#64748b">ShipPromise · deadline</text>
+          </g>
+          <path d="M232,72 L368,72" fill="none" stroke="#7aa3d6" stroke-width="1.8" stroke-dasharray="5 4" marker-start="url(#arrS)" marker-end="url(#arrS)"/>
+          <text x="300" y="64" text-anchor="middle" font-size="10.5" fill="#7aa3d6">对比</text>
+          <g>
+            <rect x="370" y="40" width="200" height="64" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh3)"/>
+            <path d="M370,48 L570,48 L570,52 Q570,40 558,40 L382,40 Q370,40 370,52 Z" fill="#ec4899"/>
+            <text x="470" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#be185d">实际发货</text>
+            <text x="470" y="88" text-anchor="middle" font-size="10" fill="#64748b">ShipmentConfirm · shipped_at</text>
+          </g>
+          <path d="M572,72 L758,72" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrE)"/>
+          <text x="665" y="64" text-anchor="middle" font-size="10.5" fill="#64748b">shipped_at &gt; deadline?</text>
+          <g>
+            <rect x="760" y="40" width="250" height="64" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh3)"/>
+            <path d="M760,48 L1010,48 L1010,52 Q1010,40 998,40 L772,40 Q760,40 760,52 Z" fill="#ec4899"/>
+            <text x="885" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#be185d">超时罚扣 TimeoutPenalty</text>
+            <text x="885" y="88" text-anchor="middle" font-size="10" fill="#64748b">扣商家保证金 / 降权</text>
+          </g>
+
+          <!-- 段2 配送 -->
+          <text x="20" y="158" font-size="13" font-weight="700" fill="#be185d">② 配送时效</text>
+          <g>
+            <rect x="30" y="170" width="200" height="64" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh3)"/>
+            <path d="M30,178 L230,178 L230,182 Q230,170 218,170 L42,170 Q30,170 30,182 Z" fill="#ec4899"/>
+            <text x="130" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="#be185d">配送时效目标</text>
+            <text x="130" y="218" text-anchor="middle" font-size="10" fill="#64748b">DeliveryPromise · deadline</text>
+          </g>
+          <path d="M232,202 L368,202" fill="none" stroke="#7aa3d6" stroke-width="1.8" stroke-dasharray="5 4" marker-start="url(#arrS)" marker-end="url(#arrS)"/>
+          <text x="300" y="194" text-anchor="middle" font-size="10.5" fill="#7aa3d6">对比</text>
+          <g>
+            <rect x="370" y="170" width="200" height="64" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh3)"/>
+            <path d="M370,178 L570,178 L570,182 Q570,170 558,170 L382,170 Q370,170 370,182 Z" fill="#ec4899"/>
+            <text x="470" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="#be185d">实际送达</text>
+            <text x="470" y="218" text-anchor="middle" font-size="10" fill="#64748b">DeliveryConfirm · received_at</text>
+          </g>
+          <path d="M572,202 L758,202" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrE)"/>
+          <text x="665" y="194" text-anchor="middle" font-size="10.5" fill="#64748b">received_at &gt; deadline?</text>
+          <g>
+            <rect x="760" y="170" width="250" height="64" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh3)"/>
+            <path d="M760,178 L1010,178 L1010,182 Q1010,170 998,170 L772,170 Q760,170 760,182 Z" fill="#ec4899"/>
+            <text x="885" y="200" text-anchor="middle" font-size="13" font-weight="700" fill="#be185d">超时罚扣 TimeoutPenalty</text>
+            <text x="885" y="218" text-anchor="middle" font-size="10" fill="#64748b">扣承运商运费</text>
+          </g>
+        </svg>
+      </div>
+      <p>偏差追溯：实际时点与目标 <code>deadline</code> 对比，超出触发 <code>TimeoutPenalty</code>（扣商家保证金 / 降权 / 扣承运商运费），进入结算合同的违约处理。</p>
+    </section>
+
+    <section class="card" id="s6">
+      <h2><span class="num">6</span>四原型分布</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>原型</th><th>颜色</th><th>本场景元素</th></tr></thead>
+          <tbody>
+            <tr><td><b>时标型</b>（Moment-Interval）</td><td><span class="badge b-moment">红/粉</span></td><td>Order、Payment、ShipmentConfirm、DeliveryConfirm、MerchantSettlement、LogisticsFee、Refund、Return、ShipPromise、DeliveryPromise、TimeoutPenalty</td></tr>
+            <tr><td><b>描述型</b>（Description）</td><td><span class="badge b-desc">蓝</span></td><td>SKU 商品目录、PromotionRule、Coupon、FreightRule、CommissionRule、ReturnPolicy</td></tr>
+            <tr><td><b>角色型</b>（Role）</td><td><span class="badge b-role">黄</span></td><td>买方、卖方、付款方、收款方、发货方、承运方</td></tr>
+            <tr><td><b>参与者型</b>（Party-Place-Thing）</td><td><span class="badge b-ppt">绿</span></td><td>用户、商家、平台、承运商、<b>商品 (SKU)（标的物）</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" id="s7">
+      <h2><span class="num">7</span>关键判别应用说明</h2>
+      <ol class="numlist">
+        <li><b>担保交易时标（电商独有）：</b><code>MerchantSettlement.settled_at &gt; DeliveryConfirm.received_at</code>。平台代收货款，<b>确认收货触发放款</b>——区别于外卖"送达即结算"，是 B2C 凭证链的核心差异点。</li>
+        <li><b>价格快照锁定：</b><code>Order</code> 在 <code>placed_at</code> 锁定 SKU 价格快照与库存，商品后续变价不溯及既有订单。SKU 目录归<b>描述型</b>，其快照内嵌进 Order。</li>
+        <li><b>算法生成金额（关键数据项第 ③ 类来源）：</b>物流费 <code>fee = f(重量, 地区, 满减)</code> 追溯到<b>描述型</b> <code>FreightRule</code>；促销折扣追溯 <code>PromotionRule</code>。</li>
+        <li><b>描述型 vs 时标型：</b>促销规则、优惠券虽影响金额，但仅被订单引用、承载规则 → <b>描述型</b>。</li>
+        <li><b>标的物归类：</b><b>商品 (SKU)</b> = 标的物 → <b>参与者型（Party-Place-Thing，含"物"）</b>，非第五类；业务上下文仅以 ID / 快照引用，不拥有其生命周期。</li>
+        <li><b>平台枢纽方：</b>平台在"货款结算合同""物流费结算合同"中作为<b>对手方</b>直接收付（盈利来源 = 抽佣），在"订单交易"中仅撮合。</li>
+        <li><b>双段物流 KPI：</b>发货时效（约束商家）+ 配送时效（约束承运商）两条独立 KPI 链，责任分摊清晰。</li>
+      </ol>
+    </section>
+
+    <section class="card" id="s8">
+      <h2><span class="num">8</span>端到端走查</h2>
+      <div class="walk">
+        <h4>✅ 正常：浏览 → 下单 → 付款 → 发货 → 收货 → 结算</h4>
+        <ol class="guide">
+          <li>用户浏览 SKU 目录（描述型）→ 下单 <code>Order</code>（<code>placed_at</code>，锁定价格快照与库存，<code>total_amount</code> 由 SKU 快照价 − 优惠计算）。</li>
+          <li>用户在线支付 → <code>Payment</code>（<code>paid_at &gt; placed_at</code>，<code>amount = Order.total_amount</code>），平台代收。</li>
+          <li>商家发货 → <code>ShipmentConfirm</code>（<code>shipped_at &gt; paid_at</code>，受 <code>ShipPromise.deadline</code> 约束）；承运商配送 → 用户收货 → <code>DeliveryConfirm</code>（<code>received_at</code>，受 <code>DeliveryPromise.deadline</code> 约束）。</li>
+          <li>担保放款：<code>received_at</code> 后 → <code>MerchantSettlement</code>（<code>settled_at &gt; received_at</code>，<code>amount = Σ(Order)×(1−rate) − Refund</code>）；同时 <code>LogisticsFee</code> 结算承运商。</li>
+        </ol>
+      </div>
+      <div class="walk bad">
+        <h4>⚠ 异常 A：下单后变价（验证价格快照）</h4>
+        <p>商品 14:00 从 199 元调为 219 元；用户 13:59 下单 → 订单按<b>旧价 199</b>（快照锁定），<code>Order</code> 不受 SKU 后续变更影响。<b>✅ 脊梁可证明。</b></p>
+      </div>
+      <div class="walk bad">
+        <h4>⚠ 异常 B：收货后七天无理由退货（验证逆向凭证）</h4>
+        <p><code>received_at</code> 为 D 日，用户 D+5 日申请退货（≤ <code>received_at + return_window=7</code>）→ <code>Return</code> → <code>Refund</code>（<code>refund_at &gt; paid_at</code>，引用 Payment）→ 从下次 <code>MerchantSettlement</code> 扣减。<b>✅ 权责可追溯。</b></p>
+      </div>
+      <div class="walk bad">
+        <h4>⚠ 异常 C：商家发货超时（验证 KPI 偏差）</h4>
+        <p><code>shipped_at &gt; ShipPromise.deadline</code> → 触发 <code>TimeoutPenalty</code>（扣保证金 / 降权）；若用户取消 → <code>Refund</code> 仅退款。<b>✅ 脊梁经受追溯。</b></p>
+      </div>
+    </section>
+
+    <section class="card" id="s9">
+      <h2><span class="num">9</span>自洽性结论</h2>
+      <div class="callout ok">
+        <div class="t">✅ 两条硬约束满足</div>
+        所有凭证围绕现金往来（货款 / 结算 / 物流费）或 KPI（发货 / 配送时效）；凭证间通过关键数据项（时点 + 金额）的<b>计算逻辑</b>与<b>时标顺序逻辑</b>明确关联。
+      </div>
+      <div class="callout ok">
+        <div class="t">✅ 脊梁完整且经异常验证</div>
+        业务脊梁 <code>Order → Payment → ShipmentConfirm → DeliveryConfirm → MerchantSettlement</code> 完整捕捉 B2C 收入流，并经变价 / 退货 / 超时三类异常追溯验证。
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <p>四色建模法（4 Color Modeling）· 强分析法 · 从收入流与成本结构推演业务脊梁</p>
+  <p>本方案作为统一语言提案，需与业务方确认后正式成立。</p>
+</footer>
+
+<button id="topbtn" title="回到顶部">↑</button>
+<script>
+  const b=document.getElementById('topbtn');
+  window.addEventListener('scroll',()=>b.classList.toggle('show',scrollY>500));
+  b.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>

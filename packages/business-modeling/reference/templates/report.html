@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<!--
+  业务建模 HTML 报告骨架模板（报告轨）
+  套用说明：
+    1. 替换所有 {{...}} 占位符。
+    2. 按 <!-- 指引 --> 填充各 section；图用手写 <svg>（片段库见 ../html-report.md）。
+    3. 四原型配色已内置为 CSS 变量与徽章 class（b-moment/b-desc/b-role/b-ppt），正文徽章与 SVG 配色自动呼应。
+    4. 不引入任何 CDN，离线可直接打开。
+-->
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{报告标题}}</title>
+<style>
+  :root{
+    /* 四原型配色（与 html-report.md 配色表一致） */
+    --moment:#ec4899; --moment-bg:#fde7f3; --moment-ink:#be185d; --moment-line:#fbcfe8;
+    --desc:#3b82f6;   --desc-bg:#e3f0ff;   --desc-ink:#1d4ed8;   --desc-line:#dbeafe;
+    --role:#f9a825;   --role-bg:#fef3cf;   --role-ink:#b45309;   --role-line:#fde68a;
+    --ppt:#2e7d32;    --ppt-bg:#e6f4ea;    --ppt-ink:#1b5e20;    --ppt-line:#bbf7d0;
+    --ink:#1d2230; --muted:#64748b; --faint:#94a3b8; --line:#e6e9f0;
+    --bg:#f5f6fa; --card:#fff; --accent:#4f46e5;
+    --shadow:0 1px 3px rgba(20,30,60,.06), 0 8px 28px rgba(20,30,60,.06);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans SC",sans-serif;font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased;}
+  code,.mono{font-family:"JetBrains Mono","SFMono-Regular",Consolas,Menlo,monospace;}
+
+  /* Hero */
+  .hero{color:#fff;padding:60px 24px 52px;text-align:center;background:linear-gradient(135deg,#312e81,#4f46e5 50%,#7c3aed);position:relative;overflow:hidden;}
+  .hero .eyebrow{display:inline-block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.16);padding:6px 14px;border-radius:999px;margin-bottom:16px;}
+  .hero h1{margin:0 0 10px;font-size:32px;font-weight:800;}
+  .hero .sub{margin:0 auto;max-width:720px;color:#e7e9ff;}
+  .meta{margin-top:20px;display:flex;gap:10px;flex-wrap:wrap;justify-content:center;}
+  .chip{font-size:13px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);padding:6px 12px;border-radius:8px;color:#f3f4ff;}
+  .legend{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:24px;}
+  .legend .lg{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:7px 12px;border-radius:10px;font-size:13px;}
+  .dot{width:12px;height:12px;border-radius:50%;display:inline-block;}
+  .dot.m{background:var(--moment);} .dot.d{background:var(--desc);} .dot.r{background:var(--role);} .dot.p{background:var(--ppt);}
+
+  /* Layout */
+  .layout{display:flex;gap:36px;max-width:1220px;margin:0 auto;padding:32px 20px 80px;}
+  .toc{position:sticky;top:20px;align-self:flex-start;width:222px;flex:0 0 222px;font-size:13.5px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 16px;box-shadow:var(--shadow);}
+  .toc h4{margin:0 0 10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
+  .toc ol{margin:0;padding:0;list-style:none;counter-reset:toc;}
+  .toc li{counter-increment:toc;margin:2px 0;}
+  .toc a{display:block;padding:6px 10px;border-radius:8px;color:#444a5e;text-decoration:none;transition:.15s;}
+  .toc a::before{content:counter(toc) ". ";color:var(--accent);font-weight:700;margin-right:4px;}
+  .toc a:hover{background:#eef0fb;color:var(--accent);}
+  .content{flex:1;min-width:0;}
+
+  /* Sections */
+  section.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 30px;margin-bottom:22px;box-shadow:var(--shadow);}
+  section.card>h2{margin:0 0 6px;font-size:21px;display:flex;align-items:center;gap:12px;}
+  .num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 8px;border-radius:9px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;font-size:15px;font-weight:800;}
+  .lead{color:var(--muted);margin:2px 0 18px;}
+  h3{margin:24px 0 10px;font-size:16.5px;color:#2a3050;}
+
+  /* Tables */
+  .table-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--line);}
+  table{width:100%;border-collapse:collapse;font-size:14px;min-width:560px;}
+  thead th{background:#f1f3fb;text-align:left;padding:11px 13px;font-weight:700;color:#2a3050;border-bottom:2px solid var(--line);white-space:nowrap;}
+  tbody td{padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top;}
+  tbody tr:nth-child(even){background:#fafbfd;}
+  tbody tr:hover{background:#f1f5ff;}
+  td code{font-size:12.8px;background:#f3f4f8;padding:1px 6px;border-radius:5px;color:#334;}
+
+  /* Badges */
+  .badge{display:inline-block;padding:2px 9px;border-radius:999px;font-size:12px;font-weight:700;line-height:1.6;white-space:nowrap;}
+  .b-moment{background:var(--moment-bg);color:var(--moment-ink);}
+  .b-desc{background:var(--desc-bg);color:var(--desc-ink);}
+  .b-role{background:var(--role-bg);color:var(--role-ink);}
+  .b-ppt{background:var(--ppt-bg);color:var(--ppt-ink);}
+
+  /* Figure / SVG */
+  .figure{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px;margin:14px 0;overflow-x:auto;box-shadow:var(--shadow);}
+  .figure svg{display:block;width:100%;height:auto;min-width:720px;}
+
+  /* Lists & callouts */
+  ol.guide{padding-left:20px;} ol.guide li{margin:7px 0;}
+  .numlist{counter-reset:nl;list-style:none;padding:0;}
+  .numlist li{counter-increment:nl;position:relative;padding:8px 10px 8px 42px;margin:8px 0;background:#fafbff;border:1px solid var(--line);border-radius:10px;}
+  .numlist li::before{content:counter(nl);position:absolute;left:8px;top:9px;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;}
+  .callout{border-radius:12px;padding:16px 18px;margin:16px 0;border:1px solid;}
+  .callout .t{font-weight:700;margin-bottom:6px;}
+  .ok{background:#f0fbf3;border-color:#bfe9cb;color:#1e6b34;}
+  .warn{background:#fff8ec;border-color:#fbe3b3;color:#9a6500;}
+  .info{background:#eef4ff;border-color:#cdd9fb;color:#27408b;}
+  .walk{border-left:4px solid var(--accent);padding:6px 0 6px 16px;margin:14px 0;}
+  .walk.bad{border-left-color:var(--moment);}
+  .walk h4{margin:0 0 4px;font-size:15px;}
+
+  footer{padding:24px 20px 50px;text-align:center;color:var(--muted);font-size:13px;}
+  #topbtn{position:fixed;right:22px;bottom:22px;width:44px;height:44px;border-radius:50%;border:none;background:var(--accent);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 6px 18px rgba(79,70,229,.4);opacity:0;pointer-events:none;transition:.25s;}
+  #topbtn.show{opacity:1;pointer-events:auto;}
+  @media(max-width:1000px){.toc{display:none;}.hero h1{font-size:26px;}section.card{padding:22px 18px;}}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <span class="eyebrow">{{方法名 · 如 四色建模法}}</span>
+  <h1>{{报告标题 · 如 B2C 商城购物流程业务建模}}</h1>
+  <p class="sub">{{一句话副标题 · 如 从现金权责推演业务脊梁，产出可验证的领域模型}}</p>
+  <div class="meta">
+    <span class="chip">📅 {{日期}}</span>
+    <span class="chip">🧩 方法：{{方法}}</span>
+    <span class="chip">🏬 场景：{{场景}}</span>
+  </div>
+  <div class="legend">
+    <span class="lg"><span class="dot m"></span>时标型 凭证</span>
+    <span class="lg"><span class="dot d"></span>描述型 规则/目录</span>
+    <span class="lg"><span class="dot r"></span>角色型</span>
+    <span class="lg"><span class="dot p"></span>参与者型 PPT</span>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- 侧栏目录：按实际 section 增删锚点 -->
+  <nav class="toc">
+    <h4>目录 · Contents</h4>
+    <ol>
+      <li><a href="#s0">场景假设</a></li>
+      <li><a href="#s1">端到端时序</a></li>
+      <li><a href="#s2">入口识别</a></li>
+      <li><a href="#s3">业务脊梁</a></li>
+      <li><a href="#s4">异常/逆向</a></li>
+      <li><a href="#s5">KPI 凭证链</a></li>
+      <li><a href="#s6">四原型分布</a></li>
+      <li><a href="#s7">关键判别</a></li>
+      <li><a href="#s8">端到端走查</a></li>
+      <li><a href="#s9">自洽性结论</a></li>
+    </ol>
+  </nav>
+
+  <main class="content">
+
+    <!-- 0. 场景假设：业务模式假设表（四色法）/ 领域vs业务判别（8X） -->
+    <section class="card" id="s0">
+      <h2><span class="num">0</span>场景假设</h2>
+      <p class="lead">{{建模依赖的业务模式假设说明}}</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>维度</th><th>假设</th><th>对模型的影响</th></tr></thead>
+          <tbody>
+            <tr><td>{{维度}}</td><td>{{假设}}</td><td>{{影响}}</td></tr>
+            <!-- 增行 -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 1. 端到端时序：SVG 时序图 或 有序列表均可 -->
+    <section class="card" id="s1">
+      <h2><span class="num">1</span>端到端业务时序</h2>
+      <p class="lead">凭证随业务推进依次产生。</p>
+      <div class="figure">
+        <!-- 替换为时序 SVG，或改用 <ol class="guide"> 有序列表 -->
+        <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" font-family='inherit,sans-serif'>
+          <text x="400" y="100" text-anchor="middle" fill="#94a3b8">{{在此放时序图 SVG，或改为有序列表}}</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 2. 入口识别：现金往来 / KPI 表 -->
+    <section class="card" id="s2">
+      <h2><span class="num">2</span>入口识别</h2>
+      <p class="lead">现金往来 → 收入流；无现金环节 → 成本结构（KPI）。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>#</th><th>入口</th><th>类型</th><th>性质</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>{{入口}}</td><td>{{现金/KPI}}</td><td>{{收入流/成本结构}}</td></tr>
+            <!-- 增行 -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 3. 业务脊梁：SVG 凭证链（核心）+ 凭证表 -->
+    <section class="card" id="s3">
+      <h2><span class="num">3</span>业务脊梁：凭证链</h2>
+      <p class="lead">实线 = 数值/时标来源；虚线 = 规则来源。SVG 片段库见 <code>../html-report.md</code>。</p>
+      <div class="figure">
+        <!-- 凭证链 SVG：替换为实际凭证链。下方为最小示例（Order→Payment + SKU..>Order） -->
+        <svg viewBox="0 0 1040 540" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+          <defs>
+            <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1e293b" flood-opacity="0.10"/></filter>
+            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#94a3b8"/></marker>
+            <marker id="arrB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#7aa3d6"/></marker>
+          </defs>
+
+          <!-- 描述型：SKU（示例，规则行） -->
+          <g>
+            <rect x="30" y="70" width="140" height="54" rx="10" fill="#fff" stroke="#dbeafe" filter="url(#sh)"/>
+            <path d="M30,77 L170,77 L170,80 Q170,70 160,70 L40,70 Q30,70 30,80 Z" fill="#3b82f6"/>
+            <text x="100" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">商品目录</text>
+            <text x="100" y="113" text-anchor="middle" font-size="10" fill="#64748b">SKU · price</text>
+          </g>
+          <path d="M100,124 C100,180 114,200 114,238" fill="none" stroke="#7aa3d6" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrB)"/>
+
+          <!-- 时标型：Order（示例，主链行） -->
+          <g>
+            <rect x="30" y="240" width="168" height="70" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh)"/>
+            <path d="M30,248 L198,248 L198,252 Q198,240 186,240 L42,240 Q30,240 30,252 Z" fill="#ec4899"/>
+            <text x="114" y="270" text-anchor="middle" font-size="13.5" font-weight="700" fill="#be185d">订单</text>
+            <text x="114" y="287" text-anchor="middle" font-size="10" fill="#64748b">Order · placed_at</text>
+            <text x="114" y="300" text-anchor="middle" font-size="9.5" fill="#94a3b8">total_amount</text>
+          </g>
+
+          <!-- 时标型：Payment（示例） -->
+          <g>
+            <rect x="230" y="240" width="168" height="70" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh)"/>
+            <path d="M230,248 L398,248 L398,252 Q398,240 386,240 L242,240 Q230,240 230,252 Z" fill="#ec4899"/>
+            <text x="314" y="270" text-anchor="middle" font-size="13.5" font-weight="700" fill="#be185d">支付</text>
+            <text x="314" y="287" text-anchor="middle" font-size="10" fill="#64748b">Payment · paid_at</text>
+            <text x="314" y="300" text-anchor="middle" font-size="9.5" fill="#94a3b8">amount</text>
+          </g>
+
+          <!-- 主链实线 -->
+          <path d="M200,275 L228,275" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arr)"/>
+
+          <!-- 继续补节点与连线… -->
+        </svg>
+      </div>
+
+      <h3>凭证表</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>凭证</th><th>原型</th><th>关键数据项</th><th>来源 / 计算逻辑</th><th>时标顺序逻辑</th></tr></thead>
+          <tbody>
+            <tr><td><b>{{凭证名}}</b></td><td><span class="badge b-moment">时标型</span></td><td><code>{{字段}}</code></td><td>{{计算逻辑}}</td><td>{{时标}}</td></tr>
+            <!-- 增行；原型徽章按需换 b-moment/b-desc/b-role/b-ppt -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 4. 异常 / 逆向凭证 -->
+    <section class="card" id="s4">
+      <h2><span class="num">4</span>异常 / 逆向凭证</h2>
+      <p class="lead">逆向流程也是凭证，是权责追溯的关键考验。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>逆向场景</th><th>凭证</th><th>判定</th></tr></thead>
+          <tbody>
+            <tr><td>{{场景}}</td><td><code>{{凭证}}</code></td><td>{{自动作废 / 独立履约项}}</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 5. KPI 凭证链（若场景含 KPI 入口） -->
+    <section class="card" id="s5">
+      <h2><span class="num">5</span>KPI 凭证链</h2>
+      <p class="lead">目标凭证 → 实际履约凭证 → 偏差追溯。</p>
+      <div class="figure">
+        <svg viewBox="0 0 1040 240" xmlns="http://www.w3.org/2000/svg" font-family='inherit,sans-serif'>
+          <text x="520" y="120" text-anchor="middle" fill="#94a3b8">{{KPI 链 SVG}}</text>
+        </svg>
+      </div>
+    </section>
+
+    <!-- 6. 四原型分布（表格 + 徽章） -->
+    <section class="card" id="s6">
+      <h2><span class="num">6</span>四原型分布</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>原型</th><th>颜色</th><th>本场景元素</th></tr></thead>
+          <tbody>
+            <tr><td><b>时标型</b></td><td><span class="badge b-moment">红/粉</span></td><td>{{元素列表}}</td></tr>
+            <tr><td><b>描述型</b></td><td><span class="badge b-desc">蓝</span></td><td>{{元素列表}}</td></tr>
+            <tr><td><b>角色型</b></td><td><span class="badge b-role">黄</span></td><td>{{元素列表}}</td></tr>
+            <tr><td><b>参与者型</b></td><td><span class="badge b-ppt">绿</span></td><td>{{元素列表}}（含标的物）</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- 7. 关键判别应用的说明 -->
+    <section class="card" id="s7">
+      <h2><span class="num">7</span>关键判别应用说明</h2>
+      <ol class="numlist">
+        <li>{{判别点：如 担保交易时标、价格快照锁定、标的物归类…}}</li>
+        <!-- 增项 -->
+      </ol>
+    </section>
+
+    <!-- 8. 端到端走查（正常 + ≥1 异常） -->
+    <section class="card" id="s8">
+      <h2><span class="num">8</span>端到端走查</h2>
+      <div class="walk">
+        <h4>✅ 正常流程</h4>
+        <ol class="guide">
+          <li>{{步骤}}</li>
+        </ol>
+      </div>
+      <div class="walk bad">
+        <h4>⚠ 异常：{{场景}}</h4>
+        <p>{{追溯过程与结论}}</p>
+      </div>
+    </section>
+
+    <!-- 9. 自洽性结论 -->
+    <section class="card" id="s9">
+      <h2><span class="num">9</span>自洽性结论</h2>
+      <div class="callout ok">
+        <div class="t">✅ 两条硬约束满足</div>
+        {{凭证围绕现金/KPI；凭证间通过关键数据项明确关联}}
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<footer>
+  <p>{{方法署名 · 如 四色建模法（4 Color Modeling）· 强分析法}}</p>
+  <p>本方案作为统一语言提案，需与业务方确认后正式成立。</p>
+</footer>
+
+<button id="topbtn" title="回到顶部">↑</button>
+<script>
+  const b=document.getElementById('topbtn');
+  window.addEventListener('scroll',()=>b.classList.toggle('show',scrollY>500));
+  b.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+</script>
+</body>
+</html>

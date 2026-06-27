@@ -9,7 +9,10 @@
 | --- | --- |
 | [concepts.md](./concepts.md) | 核心概念词典：每个概念的定义、关键判断标准、出处篇目 |
 | [methods.md](./methods.md) | 建模方法地图：各方法解决什么问题、适用场景、核心步骤提要、何时选哪个 |
-| [output-format.md](./output-format.md) | 建模产出规范：所有 skill 的产出必含表格、Mermaid 图、端到端走查 |
+| [output-format.md](./output-format.md) | 建模产出规范：**双轨产出**（终端 Markdown + 纯 ASCII 图 / HTML 报告 + 手写 SVG），必含表格、图、端到端走查 |
+| [terminal-diagrams.md](./terminal-diagrams.md) | **终端轨** · 纯 ASCII 图画法指南：字符约定、对齐规则、凭证链 / 时序 / 合同 / 违约 / KPI 各类图范例 |
+| [html-report.md](./html-report.md) | **报告轨** · HTML 报告 + 手写 SVG 指南：报告结构、四原型配色、可复用 SVG 片段库、坐标规划 |
+| [templates/report.html](./templates/report.html) | **报告轨** · HTML 骨架模板：CSS、四色徽章、章节占位、SVG 范例，直接套用 |
 
 ## 与 `source/` 的关系
 
