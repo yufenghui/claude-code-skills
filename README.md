@@ -1,67 +1,86 @@
 # Claude Code Plugins
 
-> 个人 Claude Code 插件库
+> 个人 Claude Code 插件库，通过 GitHub marketplace 安装与更新。
 
 ## 📦 包含的插件
 
-_暂无已发布的插件。新插件将放在 `packages/` 下开发，各插件独立选择技术栈。_
+### business-modeling（业务建模助手）
 
----
+基于极客时间《如何落地业务建模》课程（徐昊）构建的业务建模 skill 体系。
+
+- **skills**：
+  - `bm-four-color`：四色建模法——从收入流 / 成本结构推演凭证链（业务脊梁），产出四原型领域模型。
+  - `bm-8x-flow`：8X Flow——以合同履约建模业务系统，五步法识别变化点与弹性边界。
+- **reference/**：方法论内核（概念词典 + 方法地图 + 产出规范），两个 skill 共用。
+- **source/**：26 篇课程原文（保真提取）。
+- **examples/**：外卖平台建模实测方案（产出规范的首个实例，含 Mermaid 业务模型图）。
+
+skill 产出默认含 **Mermaid 业务模型图 + 表格 + 端到端走查**，可视化、可核查。
+
+详见 [packages/business-modeling/](./packages/business-modeling/)。
+
+## 📥 安装
+
+```bash
+claude plugin marketplace add https://github.com/yufenghui/claude-code-skills
+claude plugin install business-modeling@claude-code-skills
+claude plugin list
+```
+
+调用：`/business-modeling:bm-four-color`、`/business-modeling:bm-8x-flow`，或直接描述业务建模需求自动触发。
+
+## 🔄 更新
+
+仓库推送新代码后，各机器执行：
+
+```bash
+claude plugin marketplace update claude-code-skills
+claude plugin update business-modeling@claude-code-skills
+```
 
 ## 🗂️ 项目结构
 
 ```
-claude-plugins/              # 仓库根目录
-├── README.md                # 仓库总览
-├── CLAUDE.md                # Claude Code 工作指引
-└── packages/                # 插件目录
-    └── [your-plugin]/       # 在此创建新插件
+claude-code-skills/
+├── .claude-plugin/marketplace.json   # marketplace 清单（注册所有插件）
+├── README.md
+├── CLAUDE.md
+└── packages/
+    └── business-modeling/            # 业务建模插件
+        ├── .claude-plugin/plugin.json
+        ├── skills/                   # bm-four-color, bm-8x-flow
+        ├── reference/                # concepts / methods / output-format
+        ├── source/                   # 课程原文
+        └── examples/                 # 产出样例
 ```
 
-每个插件都是独立的，按需选择自己的语言、构建工具和依赖管理方式。
+## 🛠️ 开发新插件
 
-## 🛠️ 开发工作流
-
-### 创建新插件
-
-1. 创建插件目录：`mkdir packages/your-plugin`
-2. 创建插件清单 `.claude-plugin/plugin.json`：
+1. 创建目录：`mkdir packages/your-plugin`
+2. 建清单 `packages/your-plugin/.claude-plugin/plugin.json`（**`author` 必须是对象**）：
    ```json
    {
      "name": "your-plugin",
-     "version": "0.1.0",
-     "description": "Your plugin description"
+     "description": "插件描述",
+     "author": { "name": "your-name" }
    }
    ```
-3. 按需创建目录：`commands/`（CLI 命令）、`skills/`（AI 技能），以及源代码目录
-4. 选择适合的技术栈与依赖管理方式（如需）
+3. 在 `skills/`（或 `commands/`）下放内容
+4. 在仓库根 `.claude-plugin/marketplace.json` 的 `plugins` 数组里注册：
+   ```json
+   { "name": "your-plugin", "source": "./packages/your-plugin" }
+   ```
+5. 本地测试：`claude --plugin-dir ./packages/your-plugin`
+6. 发布：`git push`，用户 `claude plugin marketplace update` + `claude plugin update`
 
-### 测试插件
-
-```bash
-# 使用 --plugin-dir 测试本地插件
-claude --plugin-dir ./packages/your-plugin
-```
+> 版本策略：`plugin.json` 不写 `version` → 走 commit-SHA 自动版本，每次 push 自动成新版本。
 
 ## 📚 文档
 
 - [Claude Code 插件官方文档](https://code.claude.com/docs/en/plugins)
 - [插件参考](https://code.claude.com/docs/en/plugins-reference)
-
-## 🤝 贡献
-
-欢迎贡献！如果你有改进建议或发现了 bug，请：
-
-1. Fork 本仓库
-2. 创建特性分支 (`git checkout -b feature/amazing-feature`)
-3. 提交更改 (`git commit -m 'Add amazing feature'`)
-4. 推送到分支 (`git push origin feature/amazing-feature`)
-5. 开启 Pull Request
+- [Marketplace](https://code.claude.com/docs/en/plugin-marketplaces)
 
 ## 📄 许可证
 
-除非插件单独声明，本仓库所有代码均采用 MIT 许可证。
-
-## 🙏 致谢
-
-感谢 Anthropic 团队开发了 Claude Code 这个强大的工具！
+MIT
