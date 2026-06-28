@@ -31,15 +31,16 @@ scripts/start-server.sh --project-dir <仓库或工作目录> --open --idle-time
 - `screen_dir`（= `<session_dir>/content`，**agent 把 report.html 写到这里**）
 - `state_dir`（运行时元数据：`server-info`/`events`/`server-stopped` 等）
 
-## 3. 增量引导模式（参照 brainstorming）
+## 3. 增量引导模式（参照 brainstorming，省 token）
 
 1. **一次一问**：每条消息只问一个关键问题，多选优先。
 2. **按章节序列推进**（见 §4），每章 = 一个阶段。
-3. **每阶段双轨产出**：终端轨 ASCII（对话里直接给，画法见 `./terminal-diagrams.md`）+ 报告轨 HTML/SVG section（写进 report.html，画法见 `./html-report.md`）。
-4. **更新 report.html**：把该章 `<section class="card">` 追加到 report.html 的 `<main class="content">` 末尾，整体覆写到 `<screen_dir>/report.html` → server 的 `fs.watch` 检测到变化 → 浏览器自动刷新。
-5. **阶段闸门**：每章更新后问"这部分对吗？继续下一章？"——得到确认再推进。
-6. **YAGNI**：砍掉非核心假设。
-7. **收尾**：把最终 `report.html`（报告轨）+ `方案.md`（终端轨）落到用户工作目录，并 commit。
+3. **详细内容只写 HTML**：每阶段把该章 `<section>`（完整图、表、判别）追加进 report.html，浏览器实时显示。
+4. **终端只输出最简摘要**（省 token）：每阶段在终端给一两句——做了什么 + 关键判别 / 决策点 + 要用户确认的问题。**不在终端重画 ASCII 图、不重列完整表**（那些只在 HTML）。例如："✓ 第 4 章业务脊梁已加入报告：5 个凭证 Order→Payment→Settlement，餐品归参与者型。浏览器查看完整图，确认后继续？"
+5. **更新 report.html**：把该章 `<section class="card">` 追加到 report.html 的 `<main class="content">` 末尾，整体覆写到 `<screen_dir>/report.html` → server 的 `fs.watch` 检测到变化 → 浏览器自动刷新。
+6. **阶段闸门**：每章更新后问"这部分对吗？继续下一章？"——得到确认再推进。
+7. **YAGNI**：砍掉非核心假设。
+8. **收尾**：把最终 `report.html` 落到用户工作目录并 commit。终端 `.md`（ASCII 图）仅在**无 server**或用户明确要求时才产出（兜底，画法见 `./terminal-diagrams.md`）。
 
 ## 4. 章节序列（报告骨架，按此顺序逐章增量产出）
 

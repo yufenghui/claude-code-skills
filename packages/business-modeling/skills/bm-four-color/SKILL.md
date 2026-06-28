@@ -12,7 +12,7 @@ description: 引导用户用四色建模法（4 Color Modeling）从业务的收
 按 `../../reference/live-session.md` 运行——参照 superpowers brainstorming：
 - **just-in-time 启动 live server**（需要看图时才提议，不默认开），浏览器实时显示报告。
 - **一次一问**，按章节序列（见 live-session §4）增量推进，每章产出后浏览器自动刷新、用户确认再继续。
-- 每章双轨产出：终端 ASCII（对话里给）+ HTML/SVG section（写进 report.html）。
+- 每章产出：**详细只写 HTML**（图/表/判别写进 report.html，浏览器实时显示），**终端只给一两句摘要**（做了什么 + 关键判别 + 要确认的问题），不重复完整方案，省 token。
 
 四色法的 7 步对应章节序列的 3–7 章（入口 → 凭证链 → 异常 → KPI → 四原型）。
 
@@ -82,9 +82,9 @@ description: 引导用户用四色建模法（4 Color Modeling）从业务的收
 1. **凭证必须围绕现金往来或 KPI**——不能凭空造凭证。
 2. **凭证间必须通过关键数据项明确关联**——含计算逻辑与时标顺序逻辑。
 
-## 产出（双轨 + live server 实时预览）
+## 产出（HTML 报告为主，终端摘要）
 
-按 `../../reference/output-format.md` 交付**双轨**产出；运行时按 `../../reference/live-session.md` 用 live server 实时预览（每章增量更新 report.html，浏览器自动刷新）。两轨语义一致，内容都含：
+按 `../../reference/output-format.md` + `../../reference/live-session.md`：**HTML 报告含完整方案**（图/表/判别，live server 实时预览），**终端每章只给一两句摘要**（不重复完整方案，省 token）。内容项（写在 HTML 里）都含：
 
 1. **业务脊梁（凭证链）**：凭证表 + 凭证链图（实线 = 数值 / 时标来源，虚线 = 规则来源）。
 2. **异常 / 逆向凭证**：退款、取消等。
