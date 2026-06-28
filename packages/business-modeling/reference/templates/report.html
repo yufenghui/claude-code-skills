@@ -49,10 +49,11 @@
   .toc a{display:block;padding:6px 10px;border-radius:8px;color:#444a5e;text-decoration:none;transition:.15s;}
   .toc a::before{content:counter(toc) ". ";color:var(--accent);font-weight:700;margin-right:4px;}
   .toc a:hover{background:#eef0fb;color:var(--accent);}
-  .content{flex:1;min-width:0;}
+  .content{flex:1;min-width:0;counter-reset:sec;}
 
   /* Sections */
-  section.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 30px;margin-bottom:22px;box-shadow:var(--shadow);}
+  section.card{counter-increment:sec;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:28px 30px;margin-bottom:22px;box-shadow:var(--shadow);}
+  section.card>h2::before{content:counter(sec);display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 8px;border-radius:9px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;font-size:15px;font-weight:800;flex:0 0 auto;}
   section.card>h2{margin:0 0 6px;font-size:21px;display:flex;align-items:center;gap:12px;}
   .num{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;padding:0 8px;border-radius:9px;background:linear-gradient(135deg,#4f46e5,#7c3aed);color:#fff;font-size:15px;font-weight:800;}
   .lead{color:var(--muted);margin:2px 0 18px;}
@@ -140,7 +141,7 @@
 
     <!-- 0. 场景假设：业务模式假设表（四色法）/ 领域vs业务判别（8X） -->
     <section class="card" id="s1">
-      <h2><span class="num">1</span>场景假设</h2>
+      <h2>场景假设</h2>
       <p class="lead">{{建模依赖的业务模式假设说明}}</p>
       <div class="table-wrap">
         <table>
@@ -155,7 +156,7 @@
 
     <!-- 1. 端到端时序：SVG 时序图 或 有序列表均可 -->
     <section class="card" id="s2">
-      <h2><span class="num">2</span>端到端业务时序</h2>
+      <h2>端到端业务时序</h2>
       <p class="lead">凭证随业务推进依次产生。</p>
       <div class="figure">
         <!-- 替换为时序 SVG，或改用 <ol class="guide"> 有序列表 -->
@@ -167,7 +168,7 @@
 
     <!-- 2. 入口识别：现金往来 / KPI 表 -->
     <section class="card" id="s3">
-      <h2><span class="num">3</span>入口识别</h2>
+      <h2>入口识别</h2>
       <p class="lead">现金往来 → 收入流；无现金环节 → 成本结构（KPI）。</p>
       <div class="table-wrap">
         <table>
@@ -182,7 +183,7 @@
 
     <!-- 3. 业务脊梁：SVG 凭证链（核心）+ 凭证表 -->
     <section class="card" id="s4">
-      <h2><span class="num">4</span>业务脊梁：凭证链</h2>
+      <h2>业务脊梁：凭证链</h2>
       <p class="lead">实线 = 数值/时标来源；虚线 = 规则来源。SVG 片段库见 <code>../html-report.md</code>。</p>
       <div class="figure">
         <!-- 凭证链 SVG：替换为实际凭证链。下方为最小示例（Order→Payment + SKU..>Order） -->
@@ -241,7 +242,7 @@
 
     <!-- 4. 异常 / 逆向凭证 -->
     <section class="card" id="s5">
-      <h2><span class="num">5</span>异常 / 逆向凭证</h2>
+      <h2>异常 / 逆向凭证</h2>
       <p class="lead">逆向流程也是凭证，是权责追溯的关键考验。</p>
       <div class="table-wrap">
         <table>
@@ -255,7 +256,7 @@
 
     <!-- 5. KPI 凭证链（若场景含 KPI 入口） -->
     <section class="card" id="s6">
-      <h2><span class="num">6</span>KPI 凭证链</h2>
+      <h2>KPI 凭证链</h2>
       <p class="lead">目标凭证 → 实际履约凭证 → 偏差追溯。</p>
       <div class="figure">
         <svg viewBox="0 0 1040 240" xmlns="http://www.w3.org/2000/svg" font-family='inherit,sans-serif'>
@@ -266,7 +267,7 @@
 
     <!-- 6. 四原型分布（表格 + 徽章） -->
     <section class="card" id="s7">
-      <h2><span class="num">7</span>四原型分布</h2>
+      <h2>四原型分布</h2>
       <div class="table-wrap">
         <table>
           <thead><tr><th>原型</th><th>颜色</th><th>本场景元素</th></tr></thead>
@@ -282,7 +283,7 @@
 
     <!-- 7. 关键判别应用的说明 -->
     <section class="card" id="s8">
-      <h2><span class="num">8</span>关键判别应用说明</h2>
+      <h2>关键判别应用说明</h2>
       <ol class="numlist">
         <li>{{判别点：如 担保交易时标、价格快照锁定、标的物归类…}}</li>
         <!-- 增项 -->
@@ -291,7 +292,7 @@
 
     <!-- 8. 端到端走查（正常 + ≥1 异常） -->
     <section class="card" id="s9">
-      <h2><span class="num">9</span>端到端走查</h2>
+      <h2>端到端走查</h2>
       <div class="walk">
         <h4>✅ 正常流程</h4>
         <ol class="guide">
@@ -306,7 +307,7 @@
 
     <!-- 9. 自洽性结论 -->
     <section class="card" id="s10">
-      <h2><span class="num">10</span>自洽性结论</h2>
+      <h2>自洽性结论</h2>
       <div class="callout ok">
         <div class="t">✅ 两条硬约束满足</div>
         {{凭证围绕现金/KPI；凭证间通过关键数据项明确关联}}

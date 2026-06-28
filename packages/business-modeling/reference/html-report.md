@@ -31,6 +31,8 @@
 <footer>
 ```
 
+**章节标号自动**：由 CSS counter 生成（与左侧目录一致），`<h2>` 直接写标题，**不要手写 `<span class="num">N</span>`**——增删 section 后编号自动重排，不会与目录错位。
+
 每张图放在 `<div class="figure"><svg ...>...</svg></div>` 里。
 
 ## 三、四原型配色（贯穿全篇的视觉锚点）
@@ -169,5 +171,6 @@
 - [ ] 实线 / 虚线 / 粗线语义与终端轨 ASCII 图一致。
 - [ ] `viewBox` + `width:100%`，响应式不溢出（容器 `overflow-x:auto`）。
 - [ ] 无外部 CDN 依赖（离线可开）。
+- [ ] 章节标号由 CSS counter 自动生成，`<h2>` 未手写 `<span class="num">`（与目录一致）。
 
 完整实战范例见 `../examples/B2C商城-建模方案/报告.html`。
