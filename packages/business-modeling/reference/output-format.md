@@ -48,5 +48,6 @@
 
 ## 样例
 
-- **双轨格式样例（推荐参考）**：`../examples/B2C商城-建模方案/`（`方案.md` 终端 ASCII + `报告.html` 手写 SVG）
-- 旧格式样例（Mermaid，仅作历史参考）：`../examples/外卖平台-建模实测方案.md`
+- **看完整效果**：用 live server 实时生成（见 [`./live-session.md`](./live-session.md)），不必预读 examples。
+- **章节结构是默认推荐、可调**：按业务或用户需求增删、重排 section（标号由 CSS counter 自动重排）。
+- `examples/` 仅为历史样例，非必读。

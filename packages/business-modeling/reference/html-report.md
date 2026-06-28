@@ -173,4 +173,4 @@
 - [ ] 无外部 CDN 依赖（离线可开）。
 - [ ] 章节标号由 CSS counter 自动生成，`<h2>` 未手写 `<span class="num">`（与目录一致）。
 
-完整实战范例见 `../examples/B2C商城-建模方案/报告.html`。
+要看完整效果，用 live server 实时生成（见 [`./live-session.md`](./live-session.md)）。**报告结构（章节序列）是默认骨架，可按业务增删/重排**（标号由 CSS counter 自动重排）。

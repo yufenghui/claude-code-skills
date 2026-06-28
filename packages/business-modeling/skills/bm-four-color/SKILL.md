@@ -92,7 +92,7 @@ description: 引导用户用四色建模法（4 Color Modeling）从业务的收
 4. **四原型分类表**（标的物归参与者型）。
 5. **端到端走查**：正常 + 至少 1 个异常场景。
 
-可作为统一语言提案交业务方确认。完整双轨样例见 `../../examples/B2C商城-建模方案/`；旧 Mermaid 样例见 `../../examples/外卖平台-建模实测方案.md`。
+可作为统一语言提案交业务方确认。**章节结构是默认推荐、可按业务增删/重排**（标号 CSS counter 自动）；看完整效果用 live server 实时生成（见 `../../reference/live-session.md`），不必预读 examples。
 
 ## 参考资料
 
