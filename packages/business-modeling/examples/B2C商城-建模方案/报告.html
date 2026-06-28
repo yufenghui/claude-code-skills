@@ -96,23 +96,23 @@
   <nav class="toc">
     <h4>目录 · Contents</h4>
     <ol>
-      <li><a href="#s0">场景假设</a></li>
-      <li><a href="#s1">端到端时序</a></li>
-      <li><a href="#s2">入口识别</a></li>
-      <li><a href="#s3">业务脊梁</a></li>
-      <li><a href="#s4">异常/逆向</a></li>
-      <li><a href="#s5">KPI 凭证链</a></li>
-      <li><a href="#s6">四原型分布</a></li>
-      <li><a href="#s7">关键判别</a></li>
-      <li><a href="#s8">端到端走查</a></li>
-      <li><a href="#s9">自洽性结论</a></li>
+      <li><a href="#s1">场景假设</a></li>
+      <li><a href="#s2">端到端时序</a></li>
+      <li><a href="#s3">入口识别</a></li>
+      <li><a href="#s4">业务脊梁</a></li>
+      <li><a href="#s5">异常/逆向</a></li>
+      <li><a href="#s6">KPI 凭证链</a></li>
+      <li><a href="#s7">四原型分布</a></li>
+      <li><a href="#s8">关键判别</a></li>
+      <li><a href="#s9">端到端走查</a></li>
+      <li><a href="#s10">自洽性结论</a></li>
     </ol>
   </nav>
 
   <main class="content">
 
-    <section class="card" id="s0">
-      <h2><span class="num">0</span>场景假设</h2>
+    <section class="card" id="s1">
+      <h2><span class="num">1</span>场景假设</h2>
       <p class="lead">四色建模高度依赖业务模式假设。本方案采用 B2C 商城的主流形态。</p>
       <div class="table-wrap">
         <table>
@@ -129,8 +129,8 @@
     </section>
 
     <!-- 1. 端到端时序（手写 SVG 时序图） -->
-    <section class="card" id="s1">
-      <h2><span class="num">1</span>端到端业务时序</h2>
+    <section class="card" id="s2">
+      <h2><span class="num">2</span>端到端业务时序</h2>
       <p class="lead">凭证随业务推进依次产生；粗线 = 平台直接收付的结算。</p>
       <div class="figure">
         <svg viewBox="0 0 740 460" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
@@ -172,8 +172,8 @@
       </div>
     </section>
 
-    <section class="card" id="s2">
-      <h2><span class="num">2</span>入口识别</h2>
+    <section class="card" id="s3">
+      <h2><span class="num">3</span>入口识别</h2>
       <p class="lead">现金往来 → 收入流；无现金环节 → 成本结构（KPI）。</p>
       <div class="table-wrap">
         <table>
@@ -190,8 +190,8 @@
     </section>
 
     <!-- 3. 业务脊梁（手写 SVG 凭证链） -->
-    <section class="card" id="s3">
-      <h2><span class="num">3</span>业务脊梁：凭证链</h2>
+    <section class="card" id="s4">
+      <h2><span class="num">4</span>业务脊梁：凭证链</h2>
       <p class="lead">实线 = 数值 / 时标来源；虚线 = 规则来源。</p>
       <div class="figure">
         <svg viewBox="0 0 1040 540" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
@@ -325,8 +325,8 @@
     </section>
 
     <!-- 4. 异常 / 逆向（手写 SVG 违约流转） -->
-    <section class="card" id="s4">
-      <h2><span class="num">4</span>异常 / 逆向凭证</h2>
+    <section class="card" id="s5">
+      <h2><span class="num">5</span>异常 / 逆向凭证</h2>
       <p class="lead">逆向流程也是凭证，是权责追溯的关键考验。</p>
       <div class="figure">
         <svg viewBox="0 0 980 380" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
@@ -404,8 +404,8 @@
     </section>
 
     <!-- 5. KPI 凭证链（手写 SVG） -->
-    <section class="card" id="s5">
-      <h2><span class="num">5</span>KPI 凭证链</h2>
+    <section class="card" id="s6">
+      <h2><span class="num">6</span>KPI 凭证链</h2>
       <p class="lead">电商有<b>双段物流时效</b>（外卖只有一段）：发货时效约束商家，配送时效约束承运商。</p>
       <div class="figure">
         <svg viewBox="0 0 1040 320" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
@@ -469,8 +469,8 @@
       <p>偏差追溯：实际时点与目标 <code>deadline</code> 对比，超出触发 <code>TimeoutPenalty</code>（扣商家保证金 / 降权 / 扣承运商运费），进入结算合同的违约处理。</p>
     </section>
 
-    <section class="card" id="s6">
-      <h2><span class="num">6</span>四原型分布</h2>
+    <section class="card" id="s7">
+      <h2><span class="num">7</span>四原型分布</h2>
       <div class="table-wrap">
         <table>
           <thead><tr><th>原型</th><th>颜色</th><th>本场景元素</th></tr></thead>
@@ -484,8 +484,8 @@
       </div>
     </section>
 
-    <section class="card" id="s7">
-      <h2><span class="num">7</span>关键判别应用说明</h2>
+    <section class="card" id="s8">
+      <h2><span class="num">8</span>关键判别应用说明</h2>
       <ol class="numlist">
         <li><b>担保交易时标（电商独有）：</b><code>MerchantSettlement.settled_at &gt; DeliveryConfirm.received_at</code>。平台代收货款，<b>确认收货触发放款</b>——区别于外卖"送达即结算"，是 B2C 凭证链的核心差异点。</li>
         <li><b>价格快照锁定：</b><code>Order</code> 在 <code>placed_at</code> 锁定 SKU 价格快照与库存，商品后续变价不溯及既有订单。SKU 目录归<b>描述型</b>，其快照内嵌进 Order。</li>
@@ -497,8 +497,8 @@
       </ol>
     </section>
 
-    <section class="card" id="s8">
-      <h2><span class="num">8</span>端到端走查</h2>
+    <section class="card" id="s9">
+      <h2><span class="num">9</span>端到端走查</h2>
       <div class="walk">
         <h4>✅ 正常：浏览 → 下单 → 付款 → 发货 → 收货 → 结算</h4>
         <ol class="guide">
@@ -522,8 +522,8 @@
       </div>
     </section>
 
-    <section class="card" id="s9">
-      <h2><span class="num">9</span>自洽性结论</h2>
+    <section class="card" id="s10">
+      <h2><span class="num">10</span>自洽性结论</h2>
       <div class="callout ok">
         <div class="t">✅ 两条硬约束满足</div>
         所有凭证围绕现金往来（货款 / 结算 / 物流费）或 KPI（发货 / 配送时效）；凭证间通过关键数据项（时点 + 金额）的<b>计算逻辑</b>与<b>时标顺序逻辑</b>明确关联。
