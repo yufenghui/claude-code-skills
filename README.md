@@ -11,11 +11,9 @@
 - **skills**：
   - `bm-four-color`：四色建模法——从收入流 / 成本结构推演凭证链（业务脊梁），产出四原型领域模型。
   - `bm-8x-flow`：8X Flow——以合同履约建模业务系统，五步法识别变化点与弹性边界。
-- **reference/**：方法论内核（概念词典 + 方法地图 + 产出规范），两个 skill 共用。
-- **source/**：26 篇课程原文（保真提取）。
-- **examples/**：外卖平台建模实测方案（产出规范的首个实例，含 Mermaid 业务模型图）。
-
-skill 产出默认含 **Mermaid 业务模型图 + 表格 + 端到端走查**，可视化、可核查。
+- **运行方式**：参照 superpowers brainstorming——增量引导（一次一问、分段确认）+ **live server 实时可视化**（HTML 报告随建模推进，浏览器自动刷新）。详见 `reference/live-session.md`。
+- **产出（双轨）**：终端 ASCII（对话只给摘要，省 token）+ HTML 报告（完整方案，手写 SVG 图，live server 实时显示）。详见 `reference/output-format.md`。
+- **方法论核心固定 / 产出结构可调**：四色法 / 8X Flow 的建模理念是 skill 设定始终遵循；报告章节序列是默认推荐，可按业务增删重排（标号 CSS counter 自动）。
 
 详见 [packages/business-modeling/](./packages/business-modeling/)。
 
@@ -42,16 +40,21 @@ claude plugin update business-modeling@claude-code-skills
 
 ```
 claude-code-skills/
-├── .claude-plugin/marketplace.json   # marketplace 清单（注册所有插件）
+├── .claude-plugin/marketplace.json   # marketplace 清单
 ├── README.md
 ├── CLAUDE.md
 └── packages/
     └── business-modeling/            # 业务建模插件
         ├── .claude-plugin/plugin.json
         ├── skills/                   # bm-four-color, bm-8x-flow
-        ├── reference/                # concepts / methods / output-format
-        ├── source/                   # 课程原文
-        └── examples/                 # 产出样例
+        ├── reference/                # 方法论内核 + 产出规范 + live session
+        │   ├── concepts.md  methods.md  output-format.md
+        │   ├── live-session.md  html-report.md  terminal-diagrams.md
+        │   └── templates/report.html   # 报告骨架（CSS+组件，章节标号 CSS counter 自动）
+        ├── scripts/                  # live server（移植自 superpowers，MIT）
+        │   ├── server.cjs  helper.js  start-server.sh  stop-server.sh
+        ├── source/                   # 26 篇课程原文
+        └── examples/                 # 终端轨历史样例（.md，非必读）
 ```
 
 ## 🛠️ 开发新插件

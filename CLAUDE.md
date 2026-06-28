@@ -19,9 +19,10 @@ claude-code-skills/
     └── business-modeling/            # 业务建模插件（参考实现）
         ├── .claude-plugin/plugin.json
         ├── skills/                   # SKILL.md（frontmatter: name, description）
-        ├── reference/                # 共用方法论资料（按需加载）
+        ├── reference/                # 方法论内核 + 产出规范 + live session（按需加载）
+        ├── scripts/                  # live server 脚本（移植自 superpowers，MIT）
         ├── source/                   # 原始资料
-        └── examples/                 # 产出样例
+        └── examples/                 # 历史样例（非必读）
 ```
 
 ## 插件开发流程
@@ -44,8 +45,11 @@ claude-code-skills/
 ## skill 编写约定（参考 business-modeling）
 
 - SKILL.md 用祈使句、第三人称 description；正文 <500 行；概念 / 方法拆 `reference/` 共用，避免重复。
-- 建模类 skill 产出遵循 `reference/output-format.md`：必含表格 + Mermaid 图 + 端到端走查 + 判别说明。
 - 资料原文放 `source/`，提炼的判断标准 / 概念词典放 `reference/`，SKILL.md 引用而不复制。
+- **建模类 skill 产出遵循 `reference/output-format.md`**：双轨——终端 ASCII（对话只给摘要，省 token）+ HTML 报告（完整方案，**手写 SVG 图，不用 Mermaid**）；必含表格 + 图 + 端到端走查 + 判别说明。
+- **运行方式参照 superpowers brainstorming**（见 `reference/live-session.md`）：增量引导（一次一问、分段确认、阶段闸门）+ **live server 实时可视化**（HTML 报告随建模推进浏览器自动刷新；Windows 下 `run_in_background` 启动）。live server 脚本在 `scripts/`（移植自 superpowers，MIT）。
+- **报告章节标号用 CSS counter 自动生成**（见 `templates/report.html`）：`<h2>` 直接写标题，**不手写 `<span class="num">`**；增删 section 编号自动重排。
+- **方法论核心固定 / 产出结构可调**：skill 的建模方法论（步骤 / 概念 / 判别）是核心，固定遵循；报告章节序列是默认推荐，可按业务增删重排。
 
 ## 重要说明
 
@@ -53,3 +57,4 @@ claude-code-skills/
 - marketplace 发布机制：仓库根 `marketplace.json` + 各插件 `plugin.json`
 - 仓库不预设技术栈，各插件按需选择
 - skill 命名：插件内 `skills/<name>/`，调用时带插件前缀 `/<plugin>:<skill>`
+- `examples/` 仅为历史样例，agent 不必预读（省 token）；要看完整产出效果用 live server 实时生成
