@@ -154,14 +154,35 @@
       </div>
     </section>
 
-    <!-- 1. 端到端时序：SVG 时序图 或 有序列表均可 -->
+    <!-- 1. 端到端时序：按业务需要决定是否设此章；若输出，必须用 SVG 时序图（参与方生命线 + 消息箭头 + 时标 Note），不得用有序列表替代。见 ../output-format.md -->
     <section class="card" id="s2">
       <h2>端到端业务时序</h2>
-      <p class="lead">凭证随业务推进依次产生。</p>
+      <p class="lead">凭证随业务推进依次产生（参与方生命线 + 横向消息箭头 + 时标约束；不得用有序列表替代，见 ../output-format.md）。</p>
       <div class="figure">
-        <!-- 替换为时序 SVG，或改用 <ol class="guide"> 有序列表 -->
-        <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" font-family='inherit,sans-serif'>
-          <text x="400" y="100" text-anchor="middle" fill="#94a3b8">{{在此放时序图 SVG，或改为有序列表}}</text>
+        <!-- 时序图骨架：参与方生命线 + 横向消息箭头（实线=消息 / 粗线=对手方结算）+ 时标 Note。替换为实际业务时序，勿改成有序列表。 -->
+        <svg viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+          <defs>
+            <marker id="arrT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#94a3b8"/></marker>
+            <marker id="arrTB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#be185d"/></marker>
+          </defs>
+          <!-- 参与方表头 + 生命线（虚线竖线） -->
+          <text x="100" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#334">{{参与方A}}</text>
+          <text x="320" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#334">{{参与方B}}</text>
+          <text x="540" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#334">{{参与方C}}</text>
+          <text x="720" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#334">{{参与方D}}</text>
+          <line x1="100" y1="46" x2="100" y2="190" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <line x1="320" y1="46" x2="320" y2="190" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <line x1="540" y1="46" x2="540" y2="190" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <line x1="720" y1="46" x2="720" y2="190" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
+          <!-- 横向消息：实线 = 普通消息，粗线（粉）= 对手方结算 -->
+          <path d="M100,90 L316,90" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrT)"/>
+          <text x="205" y="82" text-anchor="middle" font-size="11.5" fill="#475569">{{消息①：动作 / 产生凭证}}</text>
+          <path d="M320,130 L536,130" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrT)"/>
+          <text x="428" y="122" text-anchor="middle" font-size="11.5" fill="#475569">{{消息②}}</text>
+          <path d="M100,175 L716,175" fill="none" stroke="#be185d" stroke-width="3" marker-end="url(#arrTB)"/>
+          <text x="408" y="167" text-anchor="middle" font-size="11.5" font-weight="700" fill="#be185d">{{粗线：对手方结算}}</text>
+          <!-- 时标约束 Note -->
+          <text x="100" y="210" font-size="10.5" fill="#94a3b8">Note: {{时标约束，如 paid_at > placed_at}}</text>
         </svg>
       </div>
     </section>
