@@ -98,6 +98,7 @@ description: 引导用户用四色建模法（4 Color Modeling）从业务的收
 
 - 运行方式（增量引导 + live server）：`../../reference/live-session.md`
 - 产出规范（双轨）：`../../reference/output-format.md`
+- SVG 图布局（分区 / 走通道 / 先线后点 / 自检清单）：`../../reference/svg-layout.md`
 - 概念定义（凭证 / 业务脊梁 / 四原型 / 现金日记账等）：`../../reference/concepts.md`
 - 方法选择（四色 vs 事件风暴 vs 8X Flow vs 角色-目标-实体）：`../../reference/methods.md`
 - 原文与完整示例（极客时间专栏从签约→定价→付费→分成的完整推演）：`../../source/02-旧约：“前云时代”的领域驱动设计(11讲)/09｜怎么才能更有效地获得事件流？.md`

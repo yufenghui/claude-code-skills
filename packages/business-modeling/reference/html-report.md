@@ -172,5 +172,8 @@
 - [ ] `viewBox` + `width:100%`，响应式不溢出（容器 `overflow-x:auto`）。
 - [ ] 无外部 CDN 依赖（离线可开）。
 - [ ] 章节标号由 CSS counter 自动生成，`<h2>` 未手写 `<span class="num">`（与目录一致）。
+- [ ] 布局遵循 [`./svg-layout.md`](./svg-layout.md)：连线走通道不穿节点、先画线后画节点、流向统一。
+
+SVG 图的**布局**（逻辑分区 / 流向一致 / 连线走通道不穿节点 / 先线后点 / 画前自检清单）遵循 [`./svg-layout.md`](./svg-layout.md)。
 
 要看完整效果，用 live server 实时生成（见 [`./live-session.md`](./live-session.md)）。**报告结构（章节序列）是默认骨架，可按业务增删/重排**（标号由 CSS counter 自动重排）。
