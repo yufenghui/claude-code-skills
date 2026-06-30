@@ -31,11 +31,12 @@ claude-code-skills/
    ```json
    {
      "name": "your-plugin",
+     "version": "1.0.0",
      "description": "什么场景用、做什么（第三人称）",
      "author": { "name": "your-name" }
    }
    ```
-   - 不写 `version` → 启用 commit-SHA 自动版本。
+   - **写明确语义化版本（semver）** `MAJOR.MINOR.PATCH`（破坏性变更→major / 新功能→minor / 修复→patch），用户能读懂版本、判断是否升级；不写 `version` 才回退到 commit-SHA 自动版本（不可读、不表达变更性质，仅作兜底）。
 3. **内容**：`skills/<skill-name>/SKILL.md`（带 frontmatter）；`commands/` 按需。
 4. **注册到 marketplace**：在仓库根 `.claude-plugin/marketplace.json` 的 `plugins` 数组加一项 `{ "name": "your-plugin", "source": "./packages/your-plugin" }`。
 5. **本地测试**：`claude --plugin-dir ./packages/your-plugin`，改完 `/reload-plugins`。
