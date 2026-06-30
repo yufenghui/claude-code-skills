@@ -14,6 +14,9 @@ logs
 # Git worktrees
 .worktrees/
 
+# Superpowers brainstorm (可视化伴侣中间产物)
+.superpowers/
+
 # Temporary files
 *.tmp
 *.temp
