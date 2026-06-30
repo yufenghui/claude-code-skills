@@ -13,25 +13,31 @@
 
 ## 二、报告结构（套 templates/report.html）
 
+`bm-8x-flow` 用「**总-分-总**」三段式骨架；`bm-four-color` 可简化为只用第二段的凭证链部分（单条业务脊梁）。
+
 ```
-<header class="hero">     标题 + 方法 + 场景 + 四色图例
-<nav class="toc">          侧栏目录（锚点）
+<header class="hero">          标题 + 方法 + 场景 + 四色图例
+<nav class="toc">               侧栏目录（锚点；多上下文时每个上下文一条）
 <main>
-  <section class="card">   场景假设（表格）
-  <section class="card">   端到端时序（按需；若输出必须 SVG 时序图，见 output-format.md）
-  <section class="card">   入口识别（表格）
-  <section class="card">   业务脊梁（SVG 凭证链 + 凭证表）
-  <section class="card">   异常 / 逆向（SVG 或 表格）
-  <section class="card">   KPI 链（SVG）
-  <section class="card">   四原型分布（表格 + 颜色徽章）
-  <section class="card">   关键判别（编号列表）
-  <section class="card">   端到端走查（正常 + 异常）
-  <section class="card">   自洽性结论
-  <section class="card">   待确认假设
+  第一段 · 业务全局总览（总 · 摘要级）
+    <section class="card">      §1 业务定位与经营形态（表格）
+    <section class="card">      §2 合同上下文清单（表格 + 无合同闸门）
+
+  第二段 · 逐合同上下文详细建模（分 · 每个上下文一组卡片，可复制多份）
+    <section class="card">      §3 上下文建模：<名称>
+                                   合同上下文图（SVG）+ 主要履约项表
+                                   + 凭证追溯图（SVG + 凭证表）+ 违约流转图（SVG）
+
+  第三段 · 全局整合（总 · 摘要全景）
+    <section class="card">      §4 变化点（表格，穷尽两类）
+    <section class="card">      §5 弹性边界 / 服务图（SVG，穷尽三类）
+    <section class="card">      §6 最终业务模型全视图（SVG 摘要全景）
+    <section class="card">      §7 端到端走查（正常 + 异常）
+    <section class="card">      §8 业务组件设计 / §9 中台化（可选延伸）
 <footer>
 ```
 
-**章节标号自动**：由 CSS counter 生成（与左侧目录一致），`<h2>` 直接写标题，**不要手写 `<span class="num">N</span>`**——增删 section 后编号自动重排，不会与目录错位。
+**章节标号自动**：由 CSS counter 生成（与左侧目录一致），`<h2>` 直接写标题，**不要手写 `<span class="num">N</span>`**——增删 section 后编号自动重排，不会与目录错位。**多合同上下文**：复制第二段整组 `<section>` 多份，id 递增（s3a / s3b…），侧栏目录同步加锚点。
 
 每张图放在 `<div class="figure"><svg ...>...</svg></div>` 里。
 

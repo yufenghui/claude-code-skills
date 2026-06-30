@@ -6,6 +6,13 @@
     2. 按 <!-- 指引 --> 填充各 section；图用手写 <svg>（片段库见 ../html-report.md）。
     3. 四原型配色已内置为 CSS 变量与徽章 class（b-moment/b-desc/b-role/b-ppt），正文徽章与 SVG 配色自动呼应。
     4. 不引入任何 CDN，离线可直接打开。
+
+  本骨架默认为 8X Flow 的「总-分-总」三段式（bm-8x-flow）：
+    第一段·总（摘要级）= §1 业务定位与经营形态 + §2 合同上下文清单
+    第二段·分（详细）  = §3 逐合同上下文一组卡片（合同图+履约项表+凭证图+违约图）；多上下文时复制此组多份
+    第三段·总（摘要全景）= §4 变化点 + §5 弹性边界 + §6 最终业务模型全视图 + §7 端到端走查
+  四色建模法（bm-four-color）可简化：只用第二段的"凭证追溯图 + 凭证表 + 四原型表"（单条业务脊梁），去掉合同/多上下文结构。
+  章节 <h2> 标号由 CSS counter 自动生成，勿手写 <span class="num">；增删 section 编号自动重排。
 -->
 <html lang="zh-CN">
 <head>
@@ -93,6 +100,12 @@
   .walk.bad{border-left-color:var(--moment);}
   .walk h4{margin:0 0 4px;font-size:15px;}
 
+  /* 三段式分段标签 */
+  .stage{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.05em;padding:3px 10px;border-radius:6px;margin:0 0 14px;}
+  .stage.s1{background:#eef4ff;color:#27408b;}
+  .stage.s2{background:#fef3cf;color:#9a6500;}
+  .stage.s3{background:#f0fbf3;color:#1e6b34;}
+
   footer{padding:24px 20px 50px;text-align:center;color:var(--muted);font-size:13px;}
   #topbtn{position:fixed;right:22px;bottom:22px;width:44px;height:44px;border-radius:50%;border:none;background:var(--accent);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 6px 18px rgba(79,70,229,.4);opacity:0;pointer-events:none;transition:.25s;}
   #topbtn.show{opacity:1;pointer-events:auto;}
@@ -121,199 +134,177 @@
 
 <div class="layout">
 
-  <!-- 侧栏目录：按实际 section 增删锚点 -->
+  <!-- 侧栏目录：按实际 section 增删锚点（多上下文时为每个上下文加一条 §3 链接） -->
   <nav class="toc">
     <h4>目录 · Contents</h4>
     <ol>
-      <li><a href="#s1">场景假设</a></li>
-      <li><a href="#s2">端到端时序</a></li>
-      <li><a href="#s3">入口识别</a></li>
-      <li><a href="#s4">业务脊梁</a></li>
-      <li><a href="#s5">异常/逆向</a></li>
-      <li><a href="#s6">KPI 凭证链</a></li>
-      <li><a href="#s7">四原型分布</a></li>
-      <li><a href="#s8">关键判别</a></li>
-      <li><a href="#s9">端到端走查</a></li>
-      <li><a href="#s10">自洽性结论</a></li>
+      <li><a href="#s1">业务定位与经营形态</a></li>
+      <li><a href="#s2">合同上下文清单</a></li>
+      <li><a href="#s3">上下文建模（逐个）</a></li>
+      <li><a href="#s4">变化点</a></li>
+      <li><a href="#s5">弹性边界/服务</a></li>
+      <li><a href="#s6">最终业务模型全视图</a></li>
+      <li><a href="#s7">端到端走查</a></li>
     </ol>
   </nav>
 
   <main class="content">
 
-    <!-- 0. 场景假设：业务模式假设表（四色法）/ 领域vs业务判别（8X） -->
+    <!-- ============== 第一段 · 业务全局总览（总 · 摘要级） ============== -->
+
+    <!-- §1 业务定位与经营形态 -->
     <section class="card" id="s1">
-      <h2>场景假设</h2>
-      <p class="lead">{{建模依赖的业务模式假设说明}}</p>
+      <span class="stage s1">第一段 · 总</span>
+      <h2>业务定位与经营形态</h2>
+      <p class="lead">领域系统 vs 业务系统判别 + 经营形态 + 业务全生命周期四阶段（渠道上下文 → 签约 → 履约上下文）。</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>维度</th><th>假设</th><th>对模型的影响</th></tr></thead>
+          <thead><tr><th>维度</th><th>判定 / 描述</th><th>对模型的影响</th></tr></thead>
           <tbody>
-            <tr><td>{{维度}}</td><td>{{假设}}</td><td>{{影响}}</td></tr>
+            <tr><td>领域 vs 业务</td><td>{{与盈利相关 → 业务系统，用 8X Flow}}</td><td>{{影响}}</td></tr>
+            <tr><td>经营形态</td><td>{{自营 / 平台枢纽型；枢纽方在哪些合同作对手方}}</td><td>{{影响}}</td></tr>
+            <tr><td>生命周期四阶段</td><td>{{渠道上下文（合同前）→ 签约 → 履约上下文}}</td><td>{{起点是否在签约前}}</td></tr>
             <!-- 增行 -->
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- 1. 端到端时序：按业务需要决定是否设此章；若输出，必须用 SVG 时序图（参与方生命线 + 消息箭头 + 时标 Note），不得用有序列表替代。见 ../output-format.md -->
+    <!-- §2 合同上下文清单（含无合同闸门） -->
     <section class="card" id="s2">
-      <h2>端到端业务时序</h2>
-      <p class="lead">凭证随业务推进依次产生（参与方生命线 + 横向消息箭头 + 时标约束；不得用有序列表替代，见 ../output-format.md）。</p>
-      <div class="figure">
-        <!-- 时序图骨架：参与方生命线 + 横向消息箭头（实线=消息 / 粗线=对手方结算）+ 时标 Note。替换为实际业务时序，勿改成有序列表。 -->
-        <svg viewBox="0 0 800 220" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
-          <defs>
-            <marker id="arrT" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#94a3b8"/></marker>
-            <marker id="arrTB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#be185d"/></marker>
-          </defs>
-          <!-- 参与方表头 + 生命线（虚线竖线） -->
-          <text x="100" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#334">{{参与方A}}</text>
-          <text x="320" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#334">{{参与方B}}</text>
-          <text x="540" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#334">{{参与方C}}</text>
-          <text x="720" y="34" text-anchor="middle" font-size="13" font-weight="700" fill="#334">{{参与方D}}</text>
-          <line x1="100" y1="46" x2="100" y2="190" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
-          <line x1="320" y1="46" x2="320" y2="190" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
-          <line x1="540" y1="46" x2="540" y2="190" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
-          <line x1="720" y1="46" x2="720" y2="190" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4 4"/>
-          <!-- 横向消息：实线 = 普通消息，粗线（粉）= 对手方结算 -->
-          <path d="M100,90 L316,90" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrT)"/>
-          <text x="205" y="82" text-anchor="middle" font-size="11.5" fill="#475569">{{消息①：动作 / 产生凭证}}</text>
-          <path d="M320,130 L536,130" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arrT)"/>
-          <text x="428" y="122" text-anchor="middle" font-size="11.5" fill="#475569">{{消息②}}</text>
-          <path d="M100,175 L716,175" fill="none" stroke="#be185d" stroke-width="3" marker-end="url(#arrTB)"/>
-          <text x="408" y="167" text-anchor="middle" font-size="11.5" font-weight="700" fill="#be185d">{{粗线：对手方结算}}</text>
-          <!-- 时标约束 Note -->
-          <text x="100" y="210" font-size="10.5" fill="#94a3b8">Note: {{时标约束，如 paid_at > placed_at}}</text>
-        </svg>
-      </div>
-    </section>
-
-    <!-- 2. 入口识别：现金往来 / KPI 表 -->
-    <section class="card" id="s3">
-      <h2>入口识别</h2>
-      <p class="lead">现金往来 → 收入流；无现金环节 → 成本结构（KPI）。</p>
+      <span class="stage s1">第一段 · 总</span>
+      <h2>合同上下文清单</h2>
+      <p class="lead">系统所有合同上下文 + 对手方结算关系；附「无合同四场景」闸门判别，确认无隐藏合同遗漏。</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>#</th><th>入口</th><th>类型</th><th>性质</th></tr></thead>
+          <thead><tr><th>#</th><th>合同上下文</th><th>双方参与方</th><th>关系性质</th><th>无合同闸门</th></tr></thead>
           <tbody>
-            <tr><td>1</td><td>{{入口}}</td><td>{{现金/KPI}}</td><td>{{收入流/成本结构}}</td></tr>
-            <!-- 增行 -->
+            <tr><td>1</td><td>{{上下文名}}</td><td>{{甲方 ↔ 乙方}}</td><td>{{对手方结算(粗线) / 仅撮合}}</td><td>{{真合同 / 隐藏合同已挖}}</td></tr>
+            <!-- 增行：每个合同上下文一行 -->
           </tbody>
         </table>
       </div>
+      <div class="callout info">
+        <div class="t">MECE 闸门 · 无合同四场景</div>
+        逐项确认每项是真合同而非：① 内部绩效 / ② 纯领域 / ③ 工具 / ④ 隐藏合同——属 ④ 的要继续挖，直到找全。
+      </div>
     </section>
 
-    <!-- 3. 业务脊梁：SVG 凭证链（核心）+ 凭证表 -->
-    <section class="card" id="s4">
-      <h2>业务脊梁：凭证链</h2>
-      <p class="lead">实线 = 数值/时标来源；虚线 = 规则来源。SVG 片段库见 <code>../html-report.md</code>。</p>
+    <!-- ============== 第二段 · 逐合同上下文详细建模（分 · 每个上下文一组卡片） ==============
+         多合同上下文系统：复制下方整组 <section> 多份，id 递增（s3a / s3b / s3c…），toc 同步加锚点。单上下文系统只留一组。 -->
+
+    <section class="card" id="s3">
+      <span class="stage s2">第二段 · 分（每个上下文一组，可复制多份）</span>
+      <h2>上下文建模：<ins>{{合同上下文名称}}</ins></h2>
+      <p class="lead">该上下文的合同图 + 主要履约项表 + 凭证追溯图 + 违约流转图。</p>
+
+      <h3>合同上下文图</h3>
       <div class="figure">
-        <!-- 凭证链 SVG：替换为实际凭证链。下方为最小示例（Order→Payment + SKU..>Order） -->
-        <svg viewBox="0 0 1040 540" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+        <!-- 合同图 SVG：参与方（椭圆）+ 粗线(==>对手方结算) / 普通线(仅撮合)。画法见 ../html-report.md §六"合同图"。 -->
+        <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
           <defs>
-            <filter id="sh" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#1e293b" flood-opacity="0.10"/></filter>
-            <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#94a3b8"/></marker>
-            <marker id="arrB" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#7aa3d6"/></marker>
+            <marker id="arrC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#94a3b8"/></marker>
+            <marker id="arrCB" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 Z" fill="#be185d"/></marker>
           </defs>
-
-          <!-- 描述型：SKU（示例，规则行） -->
-          <g>
-            <rect x="30" y="70" width="140" height="54" rx="10" fill="#fff" stroke="#dbeafe" filter="url(#sh)"/>
-            <path d="M30,77 L170,77 L170,80 Q170,70 160,70 L40,70 Q30,70 30,80 Z" fill="#3b82f6"/>
-            <text x="100" y="96" text-anchor="middle" font-size="13" font-weight="700" fill="#1d4ed8">商品目录</text>
-            <text x="100" y="113" text-anchor="middle" font-size="10" fill="#64748b">SKU · price</text>
-          </g>
-          <path d="M100,124 C100,180 114,200 114,238" fill="none" stroke="#7aa3d6" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#arrB)"/>
-
-          <!-- 时标型：Order（示例，主链行） -->
-          <g>
-            <rect x="30" y="240" width="168" height="70" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh)"/>
-            <path d="M30,248 L198,248 L198,252 Q198,240 186,240 L42,240 Q30,240 30,252 Z" fill="#ec4899"/>
-            <text x="114" y="270" text-anchor="middle" font-size="13.5" font-weight="700" fill="#be185d">订单</text>
-            <text x="114" y="287" text-anchor="middle" font-size="10" fill="#64748b">Order · placed_at</text>
-            <text x="114" y="300" text-anchor="middle" font-size="9.5" fill="#94a3b8">total_amount</text>
-          </g>
-
-          <!-- 时标型：Payment（示例） -->
-          <g>
-            <rect x="230" y="240" width="168" height="70" rx="12" fill="#fff" stroke="#fbcfe8" filter="url(#sh)"/>
-            <path d="M230,248 L398,248 L398,252 Q398,240 386,240 L242,240 Q230,240 230,252 Z" fill="#ec4899"/>
-            <text x="314" y="270" text-anchor="middle" font-size="13.5" font-weight="700" fill="#be185d">支付</text>
-            <text x="314" y="287" text-anchor="middle" font-size="10" fill="#64748b">Payment · paid_at</text>
-            <text x="314" y="300" text-anchor="middle" font-size="9.5" fill="#94a3b8">amount</text>
-          </g>
-
-          <!-- 主链实线 -->
-          <path d="M200,275 L228,275" fill="none" stroke="#94a3b8" stroke-width="2.2" marker-end="url(#arr)"/>
-
-          <!-- 继续补节点与连线… -->
+          <ellipse cx="160" cy="100" rx="90" ry="40" fill="#fff" stroke="#bbf7d0" stroke-width="2"/>
+          <text x="160" y="96" text-anchor="middle" font-size="14" font-weight="700" fill="#1b5e20">{{甲方}}</text>
+          <text x="160" y="114" text-anchor="middle" font-size="11" fill="#64748b">参与者型</text>
+          <ellipse cx="640" cy="100" rx="90" ry="40" fill="#fff" stroke="#bbf7c0" stroke-width="2"/>
+          <text x="640" y="96" text-anchor="middle" font-size="14" font-weight="700" fill="#1b5e20">{{乙方}}</text>
+          <text x="640" y="114" text-anchor="middle" font-size="11" fill="#64748b">参与者型</text>
+          <!-- 粗线 = 对手方结算；换普通线 + arrC 表示仅撮合 -->
+          <path d="M250,100 L550,100" fill="none" stroke="#be185d" stroke-width="3" marker-end="url(#arrCB)"/>
+          <text x="400" y="90" text-anchor="middle" font-size="12" font-weight="700" fill="#be185d">{{对手方结算 / 仅撮合}}</text>
         </svg>
       </div>
 
-      <h3>凭证表</h3>
+      <h3>主要履约项表（穷尽核心对价两侧）</h3>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>主要履约项</th><th>权利方</th><th>义务方</th><th>履约请求(段)</th><th>履约确认(点)</th><th>凭证</th><th>侧</th></tr></thead>
+          <tbody>
+            <tr><td><b>{{履约项}}</b></td><td>{{权利方}}</td><td>{{义务方}}</td><td>{{请求}}</td><td>{{确认}}</td><td><code>{{凭证}}</code></td><td>{{收入流 / 成本结构·KPI}}</td></tr>
+            <!-- 增行：覆盖核心对价两侧 -->
+          </tbody>
+        </table>
+      </div>
+
+      <h3>凭证追溯图</h3>
+      <div class="figure">
+        <!-- 凭证链 SVG：实线=数值/时标来源，虚线=规则来源。复用四色画法，片段见 ../html-report.md §四/§五。 -->
+        <svg viewBox="0 0 1040 360" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+          <text x="520" y="180" text-anchor="middle" fill="#94a3b8" font-size="13">{{凭证追溯图：该上下文主要履约项的核心凭证链（实线数值/时标 · 虚线规则）}}</text>
+        </svg>
+      </div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>凭证</th><th>原型</th><th>关键数据项</th><th>来源 / 计算逻辑</th><th>时标顺序逻辑</th></tr></thead>
           <tbody>
-            <tr><td><b>{{凭证名}}</b></td><td><span class="badge b-moment">时标型</span></td><td><code>{{字段}}</code></td><td>{{计算逻辑}}</td><td>{{时标}}</td></tr>
+            <tr><td><b>{{凭证}}</b></td><td><span class="badge b-moment">时标型</span></td><td><code>{{字段}}</code></td><td>{{计算逻辑}}</td><td>{{时标}}</td></tr>
             <!-- 增行；原型徽章按需换 b-moment/b-desc/b-role/b-ppt -->
           </tbody>
         </table>
       </div>
-    </section>
 
-    <!-- 4. 异常 / 逆向凭证 -->
-    <section class="card" id="s5">
-      <h2>异常 / 逆向凭证</h2>
-      <p class="lead">逆向流程也是凭证，是权责追溯的关键考验。</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>逆向场景</th><th>凭证</th><th>判定</th></tr></thead>
-          <tbody>
-            <tr><td>{{场景}}</td><td><code>{{凭证}}</code></td><td>{{自动作废 / 独立履约项}}</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- 5. KPI 凭证链（若场景含 KPI 入口） -->
-    <section class="card" id="s6">
-      <h2>KPI 凭证链</h2>
-      <p class="lead">目标凭证 → 实际履约凭证 → 偏差追溯。</p>
+      <h3>违约流转图（对每个主要履约项逐项）</h3>
       <div class="figure">
-        <svg viewBox="0 0 1040 240" xmlns="http://www.w3.org/2000/svg" font-family='inherit,sans-serif'>
-          <text x="520" y="120" text-anchor="middle" fill="#94a3b8">{{KPI 链 SVG}}</text>
+        <!-- 违约流转 SVG：履约项节点 + 分叉（独立履约项 / 自动作废），终止于打官司(灰)。画法见 ../html-report.md §六"违约流转"。 -->
+        <svg viewBox="0 0 1040 300" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+          <text x="520" y="150" text-anchor="middle" fill="#94a3b8" font-size="13">{{违约流转图：逐项违约 → 独立履约项 vs 自动作废 → 打官司终止}}</text>
         </svg>
       </div>
     </section>
 
-    <!-- 6. 四原型分布（表格 + 徽章） -->
-    <section class="card" id="s7">
-      <h2>四原型分布</h2>
+    <!-- ============== 第三段 · 全局整合（总 · 摘要全景） ============== -->
+
+    <!-- §4 变化点（穷尽两类来源） -->
+    <section class="card" id="s4">
+      <span class="stage s3">第三段 · 总</span>
+      <h2>变化点（穷尽两类来源）</h2>
+      <p class="lead">① 角色化的履约确认（核心合同依赖支撑合同 → 反转依赖）；② 渠道上下文（合同如何生成）。</p>
       <div class="table-wrap">
         <table>
-          <thead><tr><th>原型</th><th>颜色</th><th>本场景元素</th></tr></thead>
+          <thead><tr><th>变化点</th><th>类型</th><th>角色化 / 渠道</th><th>扮演来源</th><th>业务意义</th></tr></thead>
           <tbody>
-            <tr><td><b>时标型</b></td><td><span class="badge b-moment">红/粉</span></td><td>{{元素列表}}</td></tr>
-            <tr><td><b>描述型</b></td><td><span class="badge b-desc">蓝</span></td><td>{{元素列表}}</td></tr>
-            <tr><td><b>角色型</b></td><td><span class="badge b-role">黄</span></td><td>{{元素列表}}</td></tr>
-            <tr><td><b>参与者型</b></td><td><span class="badge b-ppt">绿</span></td><td>{{元素列表}}（含标的物）</td></tr>
+            <tr><td><b>{{变化点}}</b></td><td>{{① 角色化确认 / ② 渠道上下文}}</td><td>{{角色化的履约确认}}</td><td>{{扮演凭证来源合同}}</td><td>{{意义}}</td></tr>
+            <!-- 增行：两类都要覆盖 -->
           </tbody>
         </table>
       </div>
     </section>
 
-    <!-- 7. 关键判别应用的说明 -->
-    <section class="card" id="s8">
-      <h2>关键判别应用说明</h2>
-      <ol class="numlist">
-        <li>{{判别点：如 担保交易时标、价格快照锁定、标的物归类…}}</li>
-        <!-- 增项 -->
-      </ol>
+    <!-- §5 弹性边界 / 服务图（按四类天然边界切分） -->
+    <section class="card" id="s5">
+      <span class="stage s3">第三段 · 总</span>
+      <h2>弹性边界 / 服务图（按四类天然边界切分）</h2>
+      <p class="lead">合同上下文 = 服务边界；弹性边界 = 履约上下文 + 领域上下文 + 渠道上下文 → 服务映射。</p>
+      <div class="figure">
+        <!-- 弹性边界/服务图 SVG：四类天然边界分区（合同=服务边界；履约/领域/渠道=弹性边界）→ 服务映射。布局见 ../svg-layout.md。 -->
+        <svg viewBox="0 0 1040 320" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+          <text x="520" y="160" text-anchor="middle" fill="#94a3b8" font-size="13">{{弹性边界 / 服务图：四类天然边界 → 服务映射}}</text>
+        </svg>
+      </div>
     </section>
 
-    <!-- 8. 端到端走查（正常 + ≥1 异常） -->
-    <section class="card" id="s9">
+    <!-- §6 最终业务模型全视图（摘要全景） -->
+    <section class="card" id="s6">
+      <span class="stage s3">第三段 · 总</span>
+      <h2>最终业务模型全视图（摘要全景）</h2>
+      <p class="lead">多合同上下文框 + <b>每个上下文只露核心履约项</b> + 凭证跨上下文串联 + 领域上下文（标的物）。<b>不堆凭证字段 / 违约分叉</b>（那些在第二段）。</p>
+      <div class="figure">
+        <!-- 全视图 SVG：上下文框横排，框内只列核心履约项，框间凭证串联线，右接领域上下文（标的物，绿）。摘要级，勿堆细节。 -->
+        <svg viewBox="0 0 1040 420" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+          <text x="520" y="210" text-anchor="middle" fill="#94a3b8" font-size="13">{{最终业务模型全视图：多上下文 + 凭证跨上下文串联 + 领域上下文}}</text>
+        </svg>
+      </div>
+      <div class="callout ok">
+        <div class="t">业务如何将领域上下文转化为可盈利产品</div>
+        {{一句话总结：通过哪些合同上下文的运营活动，把领域上下文（标的物）转化为盈利产品}}
+      </div>
+    </section>
+
+    <!-- §7 端到端走查（正常 + ≥1 异常/违约） -->
+    <section class="card" id="s7">
       <h2>端到端走查</h2>
       <div class="walk">
         <h4>✅ 正常流程</h4>
@@ -327,20 +318,15 @@
       </div>
     </section>
 
-    <!-- 9. 自洽性结论 -->
-    <section class="card" id="s10">
-      <h2>自洽性结论</h2>
-      <div class="callout ok">
-        <div class="t">✅ 两条硬约束满足</div>
-        {{凭证围绕现金/KPI；凭证间通过关键数据项明确关联}}
-      </div>
-    </section>
+    <!-- 可选延伸：业务组件设计、中台化——按目标启用，接在 §7 之后，标号自动延续 -->
+    <!-- <section class="card" id="s8"><h2>业务组件设计</h2> ... 见 bm-8x-flow SKILL「业务组件设计」 ... </section> -->
+    <!-- <section class="card" id="s9"><h2>中台化：宏流程提取</h2> ... 见 bm-8x-flow SKILL「中台化」 ... </section> -->
 
   </main>
 </div>
 
 <footer>
-  <p>{{方法署名 · 如 四色建模法（4 Color Modeling）}}</p>
+  <p>{{方法署名 · 如 8X Flow（合同履约法）}}</p>
   <p>本方案作为统一语言提案，需与业务方确认后正式成立。</p>
 </footer>
 
