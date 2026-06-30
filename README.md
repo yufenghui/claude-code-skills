@@ -53,8 +53,7 @@ claude-code-skills/
         │   └── templates/report.html   # 报告骨架（CSS+组件，章节标号 CSS counter 自动）
         ├── scripts/                  # live server（移植自 superpowers，MIT）
         │   ├── server.cjs  helper.js  start-server.sh  stop-server.sh
-        ├── source/                   # 26 篇课程原文
-        └── examples/                 # 终端轨历史样例（.md，非必读）
+        └── source/                   # 26 篇课程原文
 ```
 
 ## 🛠️ 开发新插件

@@ -21,8 +21,7 @@ claude-code-skills/
         ├── skills/                   # SKILL.md（frontmatter: name, description）
         ├── reference/                # 方法论内核 + 产出规范 + live session（按需加载）
         ├── scripts/                  # live server 脚本（移植自 superpowers，MIT）
-        ├── source/                   # 原始资料
-        └── examples/                 # 历史样例（非必读）
+        └── source/                   # 原始资料
 ```
 
 ## 插件开发流程
@@ -57,4 +56,3 @@ claude-code-skills/
 - marketplace 发布机制：仓库根 `marketplace.json` + 各插件 `plugin.json`
 - 仓库不预设技术栈，各插件按需选择
 - skill 命名：插件内 `skills/<name>/`，调用时带插件前缀 `/<plugin>:<skill>`
-- `examples/` 仅为历史样例，agent 不必预读（省 token）；要看完整产出效果用 live server 实时生成
