@@ -70,7 +70,7 @@ scripts/start-server.sh --project-dir <仓库或工作目录> --open --idle-time
 
 ## 5. report.html 画布维护
 
-- **首次**：把 `./templates/report.html` 复制到 `<screen_dir>/report.html`，填好 hero（标题 / 方法 / 场景）。模板已预置 8X Flow 三段式骨架（`<main>` 的 §1–§7 + 分组 toc）——bm-8x-flow 可直接在其上填 `{{占位符}}`、按段增量更新；bm-four-color 改用凭证链为主的结构，并按需改 toc 分组名（如 业务脊梁/四原型/走查）或删 `li.grp` 退回平铺。
+- **首次**：把 `./templates/report.html` 复制到 `<screen_dir>/report.html`，填好 hero（标题 / 方法 / 场景）。模板已预置 8X Flow 全部章节（`<main>` 的 §1–§11：三段式建模 §1–§7 + 设计延伸 §8–§11 + 分组 toc + MECE 自检）——bm-8x-flow **§1–§11 全部默认产出**，直接在其上填 `{{占位符}}`、按段增量更新；**设计延伸 §8–§11 也是默认章节，勿跳过**（深度按业务需要，但章节要在）。bm-four-color 改用凭证链为主的结构，并按需改 toc 分组名（如 业务脊梁/四原型/走查）或删 `li.grp` 退回平铺。
 - **每章**：构造 `<section class="card" id="sN">...</section>`，追加到 `<main class="content">` 末尾（紧贴上一个 `</section>` 之后）。
 - **同步维护分组 toc（结构化容器）**：分组是业务结构的映射（MECE"互斥"），各 section 动态填充进去（"穷尽"）——本质见各 skill「底层逻辑原则：结构化（MECE）」。新 section 的锚点 `<li><a href="#sN">章名</a></li>` 要**插到所属分组的 `<li class="grp">分组名</li>` 之后、下一分组之前**——不要追加到 `<ol>` 末尾，否则锚点会脱离分组、全堆到最后。`li.grp` 是分组标题（无链接、CSS 不计编号，与正文 `<h2>` 编号对齐）。多合同上下文归第二段（每个上下文一条 `#s3a/#s3b`）。不用分组就删掉所有 `li.grp` 退回平铺。
 - **MECE 自检状态**：报告末尾 `<aside class="mece-check">` 的穷尽清单随建模推进动态更新——某维度判据满足时，把对应 `<li class="todo">☐…</li>` 改成 `<li class="ok">✓…</li>`。8X Flow 五维度；bm-four-color 改维度。让"穷尽"进度对业务方可见。
