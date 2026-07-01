@@ -168,6 +168,7 @@
       <li class="grp">设计延伸</li>
       <li><a href="#s8">业务组件设计</a></li>
       <li><a href="#s9">中台化设计</a></li>
+      <li><a href="#s10">SaaS 化设计</a></li>
     </ol>
   </nav>
 
@@ -345,7 +346,7 @@
     <section class="card" id="s8">
       <span class="stage s4">设计延伸</span>
       <h2>业务组件设计</h2>
-      <p class="lead">把业务模型过渡到技术设计的结构骨架：领域组件（运营无关）vs 业务组件（随运营而变），业务组件编排领域组件（标的物引用）。</p>
+      <p class="lead">把业务模型过渡到技术设计的结构：领域组件（运营无关）vs 业务组件（随运营而变），业务组件编排领域组件（标的物引用）。</p>
       <div class="table-wrap">
         <table>
           <thead><tr><th>领域组件</th><th>领域职责 / 核心模型</th><th>业务组件（编排它）</th><th>业务职责（履约流程）</th></tr></thead>
@@ -387,6 +388,25 @@
       <div class="callout warn">
         <div class="t">硬约束</div>
         只可对<b>履约确认项</b>角色化引入变化点，<b>不可对履约请求项</b>角色化（破坏权责语义）。宏流程从已存在业务模型提取，防过度抽象。
+      </div>
+    </section>
+
+    <section class="card" id="s10">
+      <span class="stage s4">设计延伸</span>
+      <h2>SaaS 化设计</h2>
+      <p class="lead">围绕"选项 = 能力 + 服务质量"分档（魔球三类客户）+ 开放式服务（沙箱）。成败在正确设计选项，而非组网技术。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>选项</th><th>能力</th><th>服务质量（SLA/NFR）</th><th>组网策略</th><th>目标客户群</th></tr></thead>
+          <tbody>
+            <tr><td><b>{{选项名}}</b></td><td>{{能力}}</td><td>{{可用性 / 响应等}}</td><td>{{dedicated / shared}}</td><td>{{高价值 / 现金奶牛 / 尴尬}}</td></tr>
+            <!-- 增行：三类客户各一档 -->
+          </tbody>
+        </table>
+      </div>
+      <div class="callout info">
+        <div class="t">开放式服务策略</div>
+        只读 / 无业务痕迹服务 → 完全开放式；会留业务痕迹的业务系统 → SaaS 化沙箱（非生产请求获独立隔离环境；冷 SaaS = 只给镜像脚本）。
       </div>
     </section>
 
