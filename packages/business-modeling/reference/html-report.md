@@ -33,7 +33,7 @@
     <section class="card">      §5 弹性边界 / 服务图（SVG，穷尽三类）
     <section class="card">      §6 业务模型全景图（SVG 骨架全景，画法见下「业务模型全景图画法」）
     <section class="card">      §7 端到端走查（正常 + 异常）
-    <section class="card">      §8 业务组件设计 / §9 中台化设计 / §10 SaaS 化设计（默认产出 · 设计延伸）
+    <section class="card">      §8 业务组件设计 / §9 微服务设计 / §10 中台化设计 / §11 SaaS 化设计（默认产出 · 设计延伸）
   <aside class="mece-check">    MECE 穷尽自检（五维度勾选，让穷尽可见；不计章节号）
 <footer>
 ```

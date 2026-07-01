@@ -167,8 +167,9 @@
       <li><a href="#s7">端到端走查</a></li>
       <li class="grp">设计延伸</li>
       <li><a href="#s8">业务组件设计</a></li>
-      <li><a href="#s9">中台化设计</a></li>
-      <li><a href="#s10">SaaS 化设计</a></li>
+      <li><a href="#s9">微服务设计</a></li>
+      <li><a href="#s10">中台化设计</a></li>
+      <li><a href="#s11">SaaS 化设计</a></li>
     </ol>
   </nav>
 
@@ -367,6 +368,25 @@
 
     <section class="card" id="s9">
       <span class="stage s4">设计延伸</span>
+      <h2>微服务设计</h2>
+      <p class="lead">通过服务实现组件化：按业务能力划分服务（业务组件即划分输入）+ RESTful 分布式超媒体。先辨真伪微服务，映射水到渠成。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>服务</th><th>边界来源（业务能力）</th><th>API（RESTful 资源 URI）</th><th>伪微服务自检</th></tr></thead>
+          <tbody>
+            <tr><td><b>{{服务名}}</b></td><td>{{合同上下文 / 履约项 / 领域上下文}}</td><td><code>/{{uri-root}}/...</code></td><td>{{真微服务 / 分布式服务 / 微工作组 / 傻服务 / 分布式单体}}</td></tr>
+            <!-- 增行：以合同上下文为服务边界，按需拆履约项；领域上下文一个服务 -->
+          </tbody>
+        </table>
+      </div>
+      <div class="callout warn">
+        <div class="t">真微服务三关键点（偏离即伪微服务）</div>
+        ① 按业务能力划分（非技术能力 / 非完整应用）→ 否则<b>分布式服务</b>；② 以产品而非项目研发（生命周期松耦合）→ 否则<b>微工作组</b>；③ 逻辑集中、编排简单 → 否则<b>傻服务</b>。另有<b>分布式单体</b>（分布但逻辑仍单体）。判别万能问句："微服务 / 分布式服务 / 分布式单体会怎么做？"
+      </div>
+    </section>
+
+    <section class="card" id="s10">
+      <span class="stage s4">设计延伸</span>
       <h2>中台化设计</h2>
       <p class="lead">从合同上下文提取可跨前台复用的宏流程：中台在"业务模式"上平衡效能与自主；宏流程 = 业务流程模板，靠配置点 + 扩展点实例化（= SaaS 化）。</p>
       <div class="table-wrap">
@@ -391,7 +411,7 @@
       </div>
     </section>
 
-    <section class="card" id="s10">
+    <section class="card" id="s11">
       <span class="stage s4">设计延伸</span>
       <h2>SaaS 化设计</h2>
       <p class="lead">围绕"选项 = 能力 + 服务质量"分档（魔球三类客户）+ 开放式服务（沙箱）。成败在正确设计选项，而非组网技术。</p>
