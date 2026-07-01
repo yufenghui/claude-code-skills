@@ -33,11 +33,16 @@
     <section class="card">      §5 弹性边界 / 服务图（SVG，穷尽三类）
     <section class="card">      §6 业务模型全景图（SVG 骨架全景，画法见下「业务模型全景图画法」）
     <section class="card">      §7 端到端走查（正常 + 异常）
-    <section class="card">      §8 业务组件设计 / §9 中台化（可选延伸）
+    <section class="card">      §8 业务组件设计 / §9 中台化设计（默认产出 · 设计延伸）
+  <aside class="mece-check">    MECE 穷尽自检（五维度勾选，让穷尽可见；不计章节号）
 <footer>
 ```
 
 **章节标号自动**：由 CSS counter 生成（与左侧目录一致），`<h2>` 直接写标题，**不要手写 `<span class="num">N</span>`**——增删 section 后编号自动重排，不会与目录错位。**多合同上下文**：复制第二段整组 `<section>` 多份，id 递增（s3a / s3b…），侧栏目录同步加锚点。
+
+**分组目录 = 结构化的可视化（MECE）**：侧栏 `<nav class="toc">` 的 `<ol>` 里，用 `<li class="grp">分组名</li>` 作分组标题。**分组是业务结构的映射（MECE 的"互斥"——段落不重叠），不是 UI 装饰**；各 section 随建模推进**动态填充**到所属分组（"穷尽"）。技术上：`li.grp` 无链接、CSS 用 `counter-increment:none` 不计入编号，目录编号与正文 `<h2>`（连续 1,2,3…）对齐。模板默认按 8X Flow 三段式分组；**分组可选**：删掉所有 `li.grp` 退回平铺，`bm-four-color` 可改分组名（业务脊梁 / 异常 / 四原型 / 走查）。本质见各 skill「底层逻辑原则：结构化（MECE）」。
+
+**MECE 穷尽自检（轻量组件）**：报告末尾 `<aside class="mece-check">` 用勾选清单呈现穷尽状态（`li.ok`✓ / `li.todo`☐），让"穷尽"对业务方可见——与分组目录（体现"互斥"）一起把 MECE 两半都落到报告。8X Flow 列五维度（上下文 / 履约项 / 违约 / 变化点 / 边界）；`bm-four-color` 改为 入口 / 异常逆向 / KPI / 四原型。建模推进中动态更新勾选（详见 `live-session.md`）。
 
 每张图放在 `<div class="figure"><svg ...>...</svg></div>` 里。
 
@@ -215,6 +220,8 @@
 - [ ] `viewBox` + `width:100%`，响应式不溢出（容器 `overflow-x:auto`）。
 - [ ] 无外部 CDN 依赖（离线可开）。
 - [ ] 章节标号由 CSS counter 自动生成，`<h2>` 未手写 `<span class="num">`（与目录一致）。
+- [ ] 目录分组：锚点 `<li><a>` 插在所属 `<li class="grp">` 分组标题之后（非 `<ol>` 末尾），分组项不计编号、目录编号与正文 `<h2>` 连续对齐。
+- [ ] MECE 两半都落地：分组目录体现"互斥"（结构不重叠）+ 末尾 `<aside class="mece-check">` 体现"穷尽"（维度勾选 ok/todo）。
 - [ ] 布局遵循 [`./svg-layout.md`](./svg-layout.md)：连线走通道不穿节点、先画线后画节点、流向统一。
 - [ ] 全景图含必含元素 6 项（履约请求/确认+权责方 + 凭证 + 标的物归领域 + 变化点 + 四类边界），不是摘要级简化
 - [ ] 全景图按上下文数量选对布局（1→纵向、≥2→网格）

@@ -53,6 +53,9 @@
   .toc h4{margin:0 0 10px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);}
   .toc ol{margin:0;padding:0;list-style:none;counter-reset:toc;}
   .toc li{counter-increment:toc;margin:2px 0;}
+  /* 分组标题项：不计编号（counter-increment:none），避免目录编号与正文 <h2>(counter sec) 错位 */
+  .toc li.grp{counter-increment:none;font-size:11px;color:var(--faint);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:14px 6px 4px;padding:0 10px;list-style:none;}
+  .toc li.grp:first-child{margin-top:0;}
   .toc a{display:block;padding:6px 10px;border-radius:8px;color:#444a5e;text-decoration:none;transition:.15s;}
   .toc a::before{content:counter(toc) ". ";color:var(--accent);font-weight:700;margin-right:4px;}
   .toc a:hover{background:#eef0fb;color:var(--accent);}
@@ -100,11 +103,21 @@
   .walk.bad{border-left-color:var(--moment);}
   .walk h4{margin:0 0 4px;font-size:15px;}
 
-  /* 三段式分段标签 */
+  /* 分段标签（三段式 + 设计延伸） */
   .stage{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.05em;padding:3px 10px;border-radius:6px;margin:0 0 14px;}
   .stage.s1{background:#eef4ff;color:#27408b;}
   .stage.s2{background:#fef3cf;color:#9a6500;}
   .stage.s3{background:#f0fbf3;color:#1e6b34;}
+  .stage.s4{background:#eef0fb;color:#4338ca;}
+
+  /* MECE 穷尽自检（轻量）：让"穷尽"在报告里可见。分组目录体现"互斥"，此组件体现"穷尽"。 */
+  .mece-check{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin:22px 0;box-shadow:var(--shadow);}
+  .mece-check .t{font-weight:700;margin-bottom:10px;font-size:15px;color:#2a3050;}
+  .mece-check ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px 20px;}
+  .mece-check li{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:5px;}
+  .mece-check li::before{font-weight:700;}
+  .mece-check li.ok{color:#1e6b34;} .mece-check li.ok::before{content:"✓";}
+  .mece-check li.todo{color:var(--faint);} .mece-check li.todo::before{content:"☐";}
 
   footer{padding:24px 20px 50px;text-align:center;color:var(--muted);font-size:13px;}
   #topbtn{position:fixed;right:22px;bottom:22px;width:44px;height:44px;border-radius:50%;border:none;background:var(--accent);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 6px 18px rgba(79,70,229,.4);opacity:0;pointer-events:none;transition:.25s;}
@@ -134,17 +147,27 @@
 
 <div class="layout">
 
-  <!-- 侧栏目录：按实际 section 增删锚点（多上下文时为每个上下文加一条 §3 链接） -->
+  <!-- 侧栏目录：默认 8X Flow 三段式分组。分组 = 业务结构的映射（MECE 互斥，段落不重叠），各 section 动态填充到所属分组（穷尽）。
+       <li class="grp">标题</li> 作分组标题（无链接、CSS 不计编号，与正文 <h2> 对齐）。
+       分组可选——删掉所有 li.grp 即退回平铺；bm-four-color 可改分组名（如 业务脊梁/异常/四原型/走查）或平铺。
+       多上下文：第二段每个上下文加一条 <li><a href="#s3a">…</a></li>。
+       设计延伸 §8 业务组件设计 / §9 中台化设计 默认在 toc「设计延伸」分组下；按需删减。 -->
   <nav class="toc">
     <h4>目录 · Contents</h4>
     <ol>
+      <li class="grp">第一段 · 业务全局</li>
       <li><a href="#s1">业务定位与经营形态</a></li>
       <li><a href="#s2">合同上下文清单</a></li>
+      <li class="grp">第二段 · 逐上下文建模</li>
       <li><a href="#s3">上下文建模（逐个）</a></li>
+      <li class="grp">第三段 · 全局整合</li>
       <li><a href="#s4">变化点</a></li>
       <li><a href="#s5">弹性边界/服务</a></li>
       <li><a href="#s6">业务模型全景图</a></li>
       <li><a href="#s7">端到端走查</a></li>
+      <li class="grp">设计延伸</li>
+      <li><a href="#s8">业务组件设计</a></li>
+      <li><a href="#s9">中台化设计</a></li>
     </ol>
   </nav>
 
@@ -318,9 +341,68 @@
       </div>
     </section>
 
-    <!-- 可选延伸：业务组件设计、中台化——按目标启用，接在 §7 之后，标号自动延续 -->
-    <!-- <section class="card" id="s8"><h2>业务组件设计</h2> ... 见 bm-8x-flow SKILL「业务组件设计」 ... </section> -->
-    <!-- <section class="card" id="s9"><h2>中台化：宏流程提取</h2> ... 见 bm-8x-flow SKILL「中台化」 ... </section> -->
+    <!-- 设计延伸（默认产出，建模完成后）：业务组件设计 + 中台化设计。深度按业务需要——简单系统浅作。 -->
+    <section class="card" id="s8">
+      <span class="stage s4">设计延伸</span>
+      <h2>业务组件设计</h2>
+      <p class="lead">把业务模型过渡到技术设计的结构骨架：领域组件（运营无关）vs 业务组件（随运营而变），业务组件编排领域组件（标的物引用）。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>领域组件</th><th>领域职责 / 核心模型</th><th>业务组件（编排它）</th><th>业务职责（履约流程）</th></tr></thead>
+          <tbody>
+            <tr><td><b>{{领域组件}}</b></td><td>{{聚合根 / 状态机 / 主数据}}</td><td><b>{{业务组件}}</b></td><td>{{履约流程}}</td></tr>
+            <!-- 增行 -->
+          </tbody>
+        </table>
+      </div>
+      <h3>组件协作图</h3>
+      <div class="figure">
+        <!-- 组件协作 SVG：业务组件编排领域组件（标的物引用）；时序图体现调用方向。画法见 ../svg-layout.md；环节独立性判别见 bm-8x-flow SKILL「业务组件设计」。 -->
+        <svg viewBox="0 0 1040 320" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+          <text x="520" y="160" text-anchor="middle" fill="#94a3b8" font-size="13">{{组件协作图：业务组件编排领域组件 + 标的物引用 + 调用时序}}</text>
+        </svg>
+      </div>
+    </section>
+
+    <section class="card" id="s9">
+      <span class="stage s4">设计延伸</span>
+      <h2>中台化设计</h2>
+      <p class="lead">从合同上下文提取可跨前台复用的宏流程：中台在"业务模式"上平衡效能与自主；宏流程 = 业务流程模板，靠配置点 + 扩展点实例化（= SaaS 化）。</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>宏流程（合同上下文）</th><th>角色化的履约确认</th><th>扮演来源（其他合同 / 领域系统）</th><th>前台实例化（配置 / 扩展）</th></tr></thead>
+          <tbody>
+            <tr><td><b>{{合同上下文}}</b></td><td>{{被角色化的确认项}}</td><td>{{扮演凭证 / 领域系统}}</td><td>{{前台 A / 前台 B}}</td></tr>
+            <!-- 增行 -->
+          </tbody>
+        </table>
+      </div>
+      <h3>宏流程图</h3>
+      <div class="figure">
+        <!-- 宏流程 SVG：提取的合同上下文 + 角色化变化点 + 领域系统扮演 + 多前台场景实例化。画法见 ../svg-layout.md；方法论见 bm-8x-flow SKILL「中台化设计」。 -->
+        <svg viewBox="0 0 1040 360" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+          <text x="520" y="180" text-anchor="middle" fill="#94a3b8" font-size="13">{{宏流程图：合同上下文 + 变化点 + 领域系统扮演 + 多前台实例化}}</text>
+        </svg>
+      </div>
+      <div class="callout warn">
+        <div class="t">硬约束</div>
+        只可对<b>履约确认项</b>角色化引入变化点，<b>不可对履约请求项</b>角色化（破坏权责语义）。宏流程从已存在业务模型提取，防过度抽象。
+      </div>
+    </section>
+
+    <!-- MECE 穷尽自检（轻量）：分组目录体现"互斥"，此组件体现"穷尽"，让建模完整度可见。
+         8X Flow 五维度；bm-four-color 改为：入口穷尽 / 异常逆向穷尽 / KPI 穷尽 / 四原型穷尽。
+         状态 li.ok(✓ 已穷尽) / li.todo(☐ 待补)，建模推进中动态更新；不计入正文章节号。 -->
+    <aside class="mece-check">
+      <div class="t">MECE 穷尽自检</div>
+      <ul>
+        <li class="ok">上下文穷尽（无合同闸门已过）</li>
+        <li class="ok">履约项穷尽（对价两侧）</li>
+        <li class="todo">违约穷尽（逐项到打官司）</li>
+        <li class="ok">变化点穷尽（两类来源）</li>
+        <li class="todo">边界穷尽（履约/领域/渠道）</li>
+      </ul>
+    </aside>
 
   </main>
 </div>

@@ -56,21 +56,24 @@ scripts/start-server.sh --project-dir <仓库或工作目录> --open --idle-time
 8. 关键判别应用
 9. 端到端走查（正常 + 异常）
 10. 结论 + 待确认假设
-11. 业务组件设计（8X Flow 可选延伸）
+11. 业务组件设计 / 中台化设计（8X Flow 设计延伸，默认产出）
 
 > 两个 skill 的章节序列：
 > - **`bm-four-color`**：用上方 1–11 通用骨架（凭证链为主，7 步对应 3–7 章）。
 > - **`bm-8x-flow`**：用「**总-分-总**」三段式（替换通用骨架）：
 >   - **第一段·总**：§1 业务定位与经营形态（含生命周期四阶段）、§2 合同上下文清单（含无合同闸门）；
 >   - **第二段·分**：§3.N 每个合同上下文一组卡片（合同图 + 主要履约项表 + 凭证追溯图 + 违约流转图）——**多上下文时增量追加多组**；
->   - **第三段·总**：§4 变化点（两类）、§5 弹性边界（三类）、§6 业务模型全景图（骨架全景）、§7 端到端走查；可选延伸 §8 业务组件设计、§9 中台化。
+>   - **第三段·总**：§4 变化点（两类）、§5 弹性边界（三类）、§6 业务模型全景图（骨架全景）、§7 端到端走查。
+>   - **设计延伸（默认产出）**：§8 业务组件设计（领域 / 业务组件）、§9 中台化设计（从合同上下文提取宏流程）。
 >
 >   具体见 `bm-8x-flow` SKILL.md；产出遵循 `output-format.md`「穷尽纪律（MECE）」与「报告结构层级」。
 
 ## 5. report.html 画布维护
 
-- **首次**：把 `./templates/report.html` 复制到 `<screen_dir>/report.html`，填好 hero（标题 / 方法 / 场景），`<main class="content">` 先留一个"正在建模…"占位 section。
-- **每章**：构造 `<section class="card" id="sN">...</section>`，追加到 `<main class="content">` 末尾（紧贴上一个 `</section>` 之后）；同步在 `<nav class="toc">` 的 `<ol>` 加 `<li><a href="#sN">章名</a></li>`。
+- **首次**：把 `./templates/report.html` 复制到 `<screen_dir>/report.html`，填好 hero（标题 / 方法 / 场景）。模板已预置 8X Flow 三段式骨架（`<main>` 的 §1–§7 + 分组 toc）——bm-8x-flow 可直接在其上填 `{{占位符}}`、按段增量更新；bm-four-color 改用凭证链为主的结构，并按需改 toc 分组名（如 业务脊梁/四原型/走查）或删 `li.grp` 退回平铺。
+- **每章**：构造 `<section class="card" id="sN">...</section>`，追加到 `<main class="content">` 末尾（紧贴上一个 `</section>` 之后）。
+- **同步维护分组 toc（结构化容器）**：分组是业务结构的映射（MECE"互斥"），各 section 动态填充进去（"穷尽"）——本质见各 skill「底层逻辑原则：结构化（MECE）」。新 section 的锚点 `<li><a href="#sN">章名</a></li>` 要**插到所属分组的 `<li class="grp">分组名</li>` 之后、下一分组之前**——不要追加到 `<ol>` 末尾，否则锚点会脱离分组、全堆到最后。`li.grp` 是分组标题（无链接、CSS 不计编号，与正文 `<h2>` 编号对齐）。多合同上下文归第二段（每个上下文一条 `#s3a/#s3b`）。不用分组就删掉所有 `li.grp` 退回平铺。
+- **MECE 自检状态**：报告末尾 `<aside class="mece-check">` 的穷尽清单随建模推进动态更新——某维度判据满足时，把对应 `<li class="todo">☐…</li>` 改成 `<li class="ok">✓…</li>`。8X Flow 五维度；bm-four-color 改维度。让"穷尽"进度对业务方可见。
 - **SVG 图**：放 `<div class="figure"><svg viewBox="0 0 1040 540">...</svg></div>`，按 `./html-report.md` 的网格法画；多张 SVG 的 `<defs>` id 要唯一（加序号，如 `#sh2`、`#arrB`）。
 - **复用既有 CSS class**（`.card`/`.badge`/`.figure`/`.table-wrap` 等）即获样式，**新 section 不要带 `<style>`**。
 - **不要手动加 helper.js**——server 在 `GET /` 时自动注入到 `</body>` 前，浏览器收到 `{type:'reload'}` 即 `location.reload()`。

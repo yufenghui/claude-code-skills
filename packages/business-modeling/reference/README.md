@@ -13,6 +13,8 @@
 | [terminal-diagrams.md](./terminal-diagrams.md) | **终端轨** · 纯 ASCII 图画法指南：字符约定、对齐规则、凭证链 / 时序 / 合同 / 违约 / KPI 各类图范例 |
 | [html-report.md](./html-report.md) | **报告轨** · HTML 报告 + 手写 SVG 指南：报告结构、四原型配色、可复用 SVG 片段库、坐标规划 |
 | [templates/report.html](./templates/report.html) | **报告轨** · HTML 骨架模板：CSS、四色徽章、章节占位、SVG 范例，直接套用 |
+| [live-session.md](./live-session.md) | **运行方式** · 增量引导 + live server 实时可视化：just-in-time 启动、画布维护、阶段闸门 |
+| [svg-layout.md](./svg-layout.md) | **报告轨** · SVG 布局纪律：分区 / 流向 / 走通道 / 先线后点 / 语法合法性自检 |
 
 ## 与 `source/` 的关系
 
@@ -23,7 +25,7 @@
 ## 课程脉络（一句话）
 
 - **旧约·前云时代（DDD）**：知识消化（两关联一循环）→ 跨越现实的障碍（4 个实现模式）→ 让模型当统一语言（催化剂/角色-目标-实体/事件风暴/四色法）→ 落地为 RESTful API。
-- **新约·云时代**：弹性优先原则 → 区分领域/业务逻辑 → **8X Flow（合同履约法）** → 中台（宏流程提取）→ 微服务落地 → SaaS（魔球建模法）。
+- **新约·云时代**：弹性优先原则 → 区分领域/业务逻辑 → **8X Flow（合同履约法）** → 中台化设计 → 微服务落地 → SaaS（魔球建模法）。
 
 ## 一条贯穿全课的主线
 
