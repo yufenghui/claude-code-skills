@@ -369,7 +369,14 @@
     <section class="card" id="s9">
       <span class="stage s4">设计延伸</span>
       <h2>微服务设计</h2>
-      <p class="lead">通过服务实现组件化：按业务能力划分服务（业务组件即划分输入）+ RESTful 分布式超媒体。先辨真伪微服务，映射水到渠成。</p>
+      <p class="lead">通过服务实现组件化：按业务能力划分服务（业务组件即划分输入），先辨真伪微服务，映射水到渠成。本节聚焦<b>服务划分依据</b>（边界从哪来）；RESTful 分布式超媒体为补充视角。</p>
+      <h3>服务边界溯源图</h3>
+      <div class="figure">
+        <!-- 服务边界溯源 SVG：左三类边界来源（合同上下文 / 履约项 / 领域上下文，来自 §3）→ 右微服务，实线映射边界来源；服务节点标真伪微服务色标。画法见 ../html-report.md「微服务边界溯源图画法」；方法论见 bm-8x-flow SKILL「微服务设计」。 -->
+        <svg viewBox="0 0 1040 360" xmlns="http://www.w3.org/2000/svg" font-family='-apple-system,"PingFang SC","Microsoft YaHei",sans-serif'>
+          <text x="520" y="180" text-anchor="middle" fill="#94a3b8" font-size="13">{{服务边界溯源图：三类边界来源 → 微服务 + 真伪微服务色标}}</text>
+        </svg>
+      </div>
       <div class="table-wrap">
         <table>
           <thead><tr><th>服务</th><th>边界来源（业务能力）</th><th>API（RESTful 资源 URI）</th><th>伪微服务自检</th></tr></thead>
